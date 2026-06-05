@@ -70,7 +70,7 @@ img8 = "https://images.unsplash.com/photo-1459749411175-04bf5292ceea"
 img9 = "https://images.unsplash.com/photo-1465847899084-d164df4dedc6"
 img10 = "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad"
 
-# --- Infinite CSS Multi-Image Slider Engine ---
+# --- Infinite CSS Engine with Custom Colored Circle Buttons ---
 css_chunks = [
     "<style>",
     ".stApp {",
@@ -135,8 +135,35 @@ css_chunks = [
     "  position: fixed; bottom: 0; left: 0; right: 0;",
     "  background: #080c1a !important;",
     "  border-top: 1px solid rgba(56, 189, 248, 0.3);",
-    "  padding: 15px 40px; z-index: 999999; text-align: center;",
+    "  padding: 25px 40px; z-index: 999999; text-align: center;",
     "}",
+    "/* Custom Black Font Circle Button Classes */",
+    "div[data-testid='stHorizontalBlock'] button {",
+    "  border-radius: 50% !important;",
+    "  width: 90px !important;",
+    "  height: 90px !important;",
+    "  padding: 0px !important;",
+    "  font-size: 12px !important;",
+    "  font-weight: 700 !important;",
+    "  color: #000000 !important; /* Force font color black */",
+    "  border: 2px solid #ffffff !important;",
+    "  display: inline-flex !important;",
+    "  align-items: center !important;",
+    "  justify-content: center !important;",
+    "  text-align: center !important;",
+    "  box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;",
+    "  transition: transform 0.2s !important;",
+    "}",
+    "div[data-testid='stHorizontalBlock'] button:hover {",
+    "  transform: scale(1.1) !important;",
+    "}",
+    "/* Unique Colors For Each Circle Box */",
+    "div[data-testid='stHorizontalBlock'] div:nth-child(1) button { background: #38bdf8 !important; }",
+    "div[data-testid='stHorizontalBlock'] div:nth-child(2) button { background: #34d399 !important; }",
+    "div[data-testid='stHorizontalBlock'] div:nth-child(3) button { background: #fbbf24 !important; }",
+    "div[data-testid='stHorizontalBlock'] div:nth-child(4) button { background: #fb923c !important; }",
+    "div[data-testid='stHorizontalBlock'] div:nth-child(5) button { background: #f472b6 !important; }",
+    "div[data-testid='stHorizontalBlock'] div:nth-child(6) button { background: #a78bfa !important; }",
     "</style>"
 ]
 st.markdown("".join(css_chunks), unsafe_allow_html=True)
@@ -242,12 +269,10 @@ p_list = [
 
 for i, p_name in enumerate(p_list):
     with nav_cols[i]:
-        is_act = (st.session_state.current_page == p_name)
         if st.button(
             p_name, 
             key=f"nav_{i}", 
-            use_container_width=True, 
-            type="primary" if is_act else "secondary"
+            use_container_width=True
         ):
             st.session_state.current_page = p_name
             st.rerun()
