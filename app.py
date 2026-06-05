@@ -58,13 +58,19 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- CSS Chunks (Safe Split Multi-Image Slider Animation) ---
+# --- 10 Premium Aesthetic Studio Wallpaper Assets ---
 img1 = "https://images.unsplash.com/photo-1516280440614-37939bbacd6a"
 img2 = "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04"
 img3 = "https://images.unsplash.com/photo-1478737270239-2f02b77fc618"
 img4 = "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0"
 img5 = "https://images.unsplash.com/photo-1484755560693-a4074577af3a"
+img6 = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4"
+img7 = "https://images.unsplash.com/photo-1514525253161-7a46d19cd819"
+img8 = "https://images.unsplash.com/photo-1459749411175-04bf5292ceea"
+img9 = "https://images.unsplash.com/photo-1465847899084-d164df4dedc6"
+img10 = "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad"
 
+# --- Infinite CSS Multi-Image Slider Engine ---
 css_chunks = [
     "<style>",
     ".stApp {",
@@ -79,14 +85,19 @@ css_chunks = [
     "  background-position: center;",
     "  background-repeat: no-repeat;",
     "  background-attachment: fixed;",
-    "  animation: bgSlider 30s infinite ease-in-out;",
+    "  animation: bgInfiniteSlider 60s infinite ease-in-out;",
     "}",
-    "@keyframes bgSlider {",
+    "@keyframes bgInfiniteSlider {",
     f"  0%, 100% {{ background-image: url('{img1}'); }}",
-    f"  20% {{ background-image: url('{img2}'); }}",
-    f"  40% {{ background-image: url('{img3}'); }}",
-    f"  60% {{ background-image: url('{img4}'); }}",
-    f"  80% {{ background-image: url('{img5}'); }}",
+    f"  10% {{ background-image: url('{img2}'); }}",
+    f"  20% {{ background-image: url('{img3}'); }}",
+    f"  30% {{ background-image: url('{img4}'); }}",
+    f"  40% {{ background-image: url('{img5}'); }}",
+    f"  50% {{ background-image: url('{img6}'); }}",
+    f"  60% {{ background-image: url('{img7}'); }}",
+    f"  70% {{ background-image: url('{img8}'); }}",
+    f"  80% {{ background-image: url('{img9}'); }}",
+    f"  90% {{ background-image: url('{img10}'); }}",
     "}",
     ".stApp::after {",
     "  content: ''; position: fixed;",
