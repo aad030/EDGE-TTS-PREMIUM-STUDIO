@@ -47,7 +47,7 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
     return generated_files
 
 # --- Premium UI Page Configuration ---
-st.set_page_config(page_title="Premium Edge TTS Studio", page_icon="🎙️", layout="wide")
+st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
 # --- Custom Premium Dark CSS ---
 st.markdown("""
@@ -126,13 +126,13 @@ page = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("© 2026 Edge TTS Studio | All Rights Reserved.")
+st.sidebar.markdown("© 2026 VocalForge AI Studio | All Rights Reserved.")
 
 # ==============================================================================
 # PAGE 1: MAIN STUDIO
 # ==============================================================================
 if page == "🎙️ Studio":
-    st.markdown('<div class="studio-title">EDGE TTS PREMIUM STUDIO</div>', unsafe_allow_html=True)
+    st.markdown('<div class="studio-title">VOCALFORGE AI STUDIO</div>', unsafe_allow_html=True)
     st.markdown('<div class="studio-subtitle">Multi-Voice Sentence Splitter & Generator | ملٹی وائس اسٹوڈیو</div>', unsafe_allow_html=True)
 
     col_left, col_right = st.columns([1.1, 0.9], gap="large")
@@ -177,7 +177,7 @@ if page == "🎙️ Studio":
                         st.download_button(
                             label="🚀 Export All Tracks to Timeline (ZIP)",
                             data=zip_buffer,
-                            file_name="premium_voice_pack.zip",
+                            file_name="vocalforge_voice_pack.zip",
                             mime="application/zip",
                             use_container_width=True
                         )
@@ -202,7 +202,7 @@ if page == "🎙️ Studio":
     st.markdown("---")
     st.markdown("### 📘 Detailed User Guide & Feature Overview")
     st.write("""
-    Welcome to the **Edge TTS Premium Studio**. This web utility leverages advanced cognitive neural speech architectures to transform regular textual content into modular audio elements. 
+    Welcome to the **VocalForge AI Studio**. This web utility leverages advanced cognitive neural speech architectures to transform regular textual content into modular audio elements. 
     Whether you are building cash-cow automation workflows or highly engaging cinematic documentaries, our system eliminates manual splitting pipelines.
     
     #### How It Works:
@@ -219,10 +219,10 @@ elif page == "📄 Privacy Policy":
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
     st.write("**Last Updated: June 2026**")
     st.write("""
-    At Edge TTS Premium Studio, accessible from this web application, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by our platform and how we use it.
+    At VocalForge AI Studio, accessible from this web application, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by our platform and how we use it.
 
     ### 1. Log Files
-    Edge TTS Premium Studio follows a standard procedure of using log files. These files log visitors when they visit web applications. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.
+    VocalForge AI Studio follows a standard procedure of using log files. These files log visitors when they visit web applications. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.
 
     ### 2. Cookies and Web Beacons
     Like any other website, our studio uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.
@@ -243,10 +243,10 @@ elif page == "⚖️ Terms & Conditions":
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
     st.write("**Last Updated: June 2026**")
     st.write("""
-    Welcome to Edge TTS Premium Studio! By accessing this website, we assume you accept these terms and conditions. Do not continue to use Edge TTS Premium Studio if you do not agree to take all of the terms and conditions stated on this page.
+    Welcome to VocalForge AI Studio! By accessing this website, we assume you accept these terms and conditions. Do not continue to use VocalForge AI Studio if you do not agree to take all of the terms and conditions stated on this page.
 
     ### 1. License & Intellectual Property
-    Unless otherwise stated, Edge TTS Premium Studio and/or its licensors own the intellectual property rights for all code and material on this application. All intellectual property rights are reserved. You may access this from Edge TTS Premium Studio for your own personal use subjected to restrictions set in these terms and conditions.
+    Unless otherwise stated, VocalForge AI Studio and/or its licensors own the intellectual property rights for all code and material on this application. All intellectual property rights are reserved. You may access this from VocalForge AI Studio for your own personal use subjected to restrictions set in these terms and conditions.
 
     ### 2. User Restrictions
     You are specifically restricted from all of the following:
@@ -267,12 +267,12 @@ elif page == "ℹ️ About Us":
     st.markdown('<div class="studio-title">About Us</div>', unsafe_allow_html=True)
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
     st.write("""
-    ### Welcome to Edge TTS Premium Studio
+    ### Welcome to VocalForge AI Studio
 
-    Edge TTS Premium Studio is a cutting-edge web utility engineered specifically for next-generation content creators, video editors, and cross-platform automation specialists. Our primary mission is to simplify the content synthesis workflow by bridging the gap between sophisticated neural audio models and modern non-linear editing (NLE) suites.
+    VocalForge AI Studio is a cutting-edge web utility engineered specifically for next-generation content creators, video editors, and cross-platform automation specialists. Our primary mission is to simplify the content synthesis workflow by bridging the gap between sophisticated neural audio models and modern non-linear editing (NLE) suites.
 
     #### Why Choose Us?
-    Traditional Text-to-Speech solutions generate massive, single-track audio blocks that require hours of meticulous splicing on editing timelines. Edge TTS Premium Studio dynamically parses textual scripts into logical linguistic elements, synthesizing independent, high-fidelity sound tracks in structural sequence.
+    Traditional Text-to-Speech solutions generate massive, single-track audio blocks that require hours of meticulous splicing on editing timelines. VocalForge AI Studio dynamically parses textual scripts into logical linguistic elements, synthesizing independent, high-fidelity sound tracks in structural sequence.
 
     #### Core Values
     * **Efficiency:** Minimizing time spent on asset slicing.
@@ -291,7 +291,7 @@ elif page == "📧 Contact Us":
     If you have any questions, feedback, feature requests, or technical inquiries regarding our studio application, feel free to reach out to us. We aim to respond within 24 to 48 hours.
 
     ### 📩 Contact Channels
-    * **Email Support:** `support@tts-premium-studio.example.com`
+    * **Email Support:** `support@vocalforge-studio.example.com`
     * **Developer Repository:** Feel free to open an issue on our official GitHub repository for bugs or code improvements.
     * **Social Presence:** Connect with our official development profile on Twitter (X) for tech updates.
 
@@ -308,12 +308,12 @@ elif page == "⚠️ Disclaimer":
     st.write("**Last Updated: June 2026**")
     st.write("""
     ### 1. General Information Only
-    All the information and tools on this website are published in good faith and for general information and productivity purposes only. Edge TTS Premium Studio does not make any warranties about the completeness, reliability, and accuracy of this utility. Any action you take upon the information you find on this website is strictly at your own risk.
+    All the information and tools on this website are published in good faith and for general information and productivity purposes only. VocalForge AI Studio does not make any warranties about the completeness, reliability, and accuracy of this utility. Any action you take upon the information you find on this website is strictly at your own risk.
 
     ### 2. Third-Party Affiliation
     This application is an independent development project. It is **not** officially affiliated with, endorsed by, sponsored by, or in any way connected to Microsoft Corporation or any of its subsidiaries. The voice assets and underlying synthesizer models are powered by the available `edge-tts` python execution layer.
 
     ### 3. Financial and Liability Limitation
-    In no event will Edge TTS Premium Studio be liable for any loss or damage including without limitation, indirect or consequential loss or damage, arising from loss of data or production timeline delays in connection with the use of this free tool.
+    In no event will VocalForge AI Studio be liable for any loss or damage including without limitation, indirect or consequential loss or damage, arising from loss of data or production timeline delays in connection with the use of this free tool.
     """)
     st.markdown('</div>', unsafe_allow_html=True)
