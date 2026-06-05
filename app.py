@@ -70,7 +70,7 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
 # --- Premium UI Page Configuration ---
 st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
-# --- CSS Injection Phase (Using single-line block concatenation to ensure zero parsing breaks) ---
+# --- CSS Injection Phase (Using clean concatenated layout format to bypass string breaks) ---
 css_style = """
 <style>
 .stApp {
@@ -202,10 +202,10 @@ if page == "🎙️ Studio":
 
     with col_left:
         st.markdown("### 📝 Script Input / یہاں اسکرپٹ لکھیں")
-        input_text = st.text_area("Input Text", placeholder="Paste your script here in any language... \nیہاں apna script paste karein...", height=240, label_visibility="collapsed")
+        input_text = st.text_area("Input Text", placeholder="Paste your script here in any language... \nیہاں اپنا اسکرپٹ پیسٹ کریں...", height=240, label_visibility="collapsed")
         
         st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگz")
+        st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگز")
         
         selected_voice_label = st.selectbox("Choose Actor Voice / آواز کا انتخاب کریں", options=list(VOICES.keys()), index=0)
         selected_voice_id = VOICES[selected_voice_label]
@@ -248,16 +248,11 @@ if page == "🎙️ Studio":
                         st.markdown("---")
                         
                         for index, file_path in enumerate(files, start=1):
-                            card_html = f"""
-                            <div class="audio-card">
-                                <div class="audio-card-title">🎵 Track {index:03d}</div>
-                                <div class="audio-card-meta">Voice Model: {selected_voice_label.split(' ')[0]} | Format: MP3 Stereo</div>
-                            </div>
-                            """
-                            st.markdown(card_html, unsafe_allow_html=True)
+                            # Safe formatted injection for track mapping
+                            st.markdown(f'<div class="audio-card"><div class="audio-card-title">🎵 Track {index:03d}</div><div class="audio-card-meta">Voice Model: {selected_voice_label.split(" ")[0]} | Format: MP3 Stereo</div></div>', unsafe_allow_html=True)
                             st.audio(file_path)
                     else:
-                        st.error("No valid sentence markers found / کوئی جملہ نہیں ملا۔")
+                        st.error("No valid sentence markers found / کوئی جملہ nahi mila.")
         else:
             st.info("System standby. Select voice profile, enter script and click compile.")
 
@@ -267,4 +262,13 @@ if page == "🎙️ Studio":
 
 elif page == "📄 Privacy Policy":
     st.markdown('<div class="studio-title">Privacy Policy</div>', unsafe_allow_html=True)
-    st.markdown('<div class
+    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
+    st.write("**Last Updated: June 2026**")
+    st.write("At VocalForge AI Studio, accessible from this web application, one of our main priorities is the privacy of our visitors.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+elif page == "⚖️ Terms & Conditions":
+    st.markdown('<div class="studio-title">Terms & Conditions</div>', unsafe_allow_html=True)
+    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
+    st.write("**Last Updated: June 2026**")
+    st.write("By accessing this website, we assume you
