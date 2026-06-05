@@ -70,20 +70,21 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
 # --- Premium UI Page Configuration ---
 st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
-# --- CSS Injection Phase (Bypassing syntax errors and ensuring complete visibility) ---
+# --- CSS Injection Phase (100% Responsive Blueprint to prevent UI squeezing) ---
 css_lines = [
     "<style>",
-    ".stApp { background: transparent !important; position: relative; overflow-x: hidden; padding-bottom: 200px !important; }",
+    ".stApp { background: transparent !important; position: relative; overflow-x: hidden; padding-bottom: 240px !important; }",
     ".stApp::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -2; background-size: cover; background-position: center; background-attachment: fixed; animation: backgroundSlider 24s infinite ease-in-out; }",
-    ".stApp::after { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; background: linear-gradient(rgba(3, 7, 20, 0.85), rgba(11, 18, 40, 0.95)); pointer-events: none; }",
+    ".stApp::after { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; background: linear-gradient(rgba(3, 7, 20, 0.88), rgba(11, 18, 40, 0.97)); pointer-events: none; }",
     "@keyframes backgroundSlider {",
     "  0%, 100% { background-image: url('https://images.unsplash.com/photo-1478737270239-2f02b77fc618'); }",
     "  33% { background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04'); }",
     "  66% { background-image: url('https://images.unsplash.com/photo-1516280440614-37939bbacd6a'); }",
     "}",
+    ".block-container { padding-left: 3rem !important; padding-right: 3rem !important; padding-top: 2rem !important; }",
     "div[data-testid='stVerticalBlock'] > div { position: relative; z-index: 10; }",
-    "h1, h2, h3, p, label, span { color: #f8fafc !important; font-weight: 500; }",
-    ".stTextArea textarea { background-color: rgba(15, 23, 42, 0.85) !important; color: #f8fafc !important; border: 1px solid rgba(56, 189, 248, 0.3) !important; border-radius: 12px !important; font-size: 16px !important; backdrop-filter: blur(12px); padding: 12px; }",
+    "h1, h2, h3, p, label, span { color: #f8fafc !important; font-weight: 500; white-space: normal !important; }",
+    ".stTextArea textarea { background-color: rgba(15, 23, 42, 0.88) !important; color: #f8fafc !important; border: 1px solid rgba(56, 189, 248, 0.35) !important; border-radius: 12px !important; font-size: 16px !important; backdrop-filter: blur(12px); padding: 14px; }",
     ".stTextArea textarea:focus { border-color: #38bdf8 !important; box-shadow: 0 0 14px rgba(56, 189, 248, 0.5) !important; }",
     ".audio-card { background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 12px; padding: 16px; margin-bottom: 14px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5); backdrop-filter: blur(12px); }",
     ".audio-card-title { color: #38bdf8 !important; font-weight: 600; font-size: 16px; margin-bottom: 4px; }",
@@ -111,14 +112,14 @@ if page == "🎙️ Studio":
     st.markdown('<div class="studio-title">VOCALFORGE AI STUDIO</div>', unsafe_allow_html=True)
     st.markdown('<div class="studio-subtitle">Global Multi-Voice Sentence Splitter & Generator | ملٹی لنگول اسٹوڈیو</div>', unsafe_allow_html=True)
 
-    # 50-50 Clean Split Structure to avoid column drop
+    # 50-50 Standard Secure Split
     col_left, col_right = st.columns(2, gap="large")
 
     with col_left:
         st.markdown("### 📝 Script Input / یہاں اسکرپٹ لکھیں")
         input_text = st.text_area("Input Text", placeholder="Paste your script here in any language...\nیہاں اپنا اسکرپٹ پیسٹ کریں...", height=250, label_visibility="collapsed")
         
-        st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگz")
+        st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگز")
         
         selected_voice_label = st.selectbox("Choose Actor Voice / آواز کا انتخاب کریں", options=list(VOICES.keys()), index=0)
         selected_voice_id = VOICES[selected_voice_label]
@@ -133,87 +134,4 @@ if page == "🎙️ Studio":
         
         if generate_clicked:
             if not input_text.strip():
-                st.warning("Please enter some text first! / پہلے ٹیکسٹ لکھیں!")
-            else:
-                with st.spinner("Compiling premium high-retention tracks..."):
-                    files = asyncio.run(generate_voice_tracks(input_text, selected_voice_id, speed_slider, pitch_slider))
-                    
-                    if files:
-                        st.toast("Tracks compiled successfully!", icon="🔥")
-                        
-                        zip_buffer = io.BytesIO()
-                        with zipfile.ZipFile(zip_buffer, "w") as zip_file:
-                            for file_path in files:
-                                zip_file.write(file_path, os.path.basename(file_path))
-                        zip_buffer.seek(0)
-                        
-                        st.download_button(
-                            label="🚀 Export All Tracks to Timeline (ZIP)",
-                            data=zip_buffer,
-                            file_name="vocalforge_voice_pack.zip",
-                            mime="application/zip",
-                            use_container_width=True
-                        )
-                        
-                        st.markdown("---")
-                        
-                        for index, file_path in enumerate(files, start=1):
-                            st.markdown(f'<div class="audio-card"><div class="audio-card-title">🎵 Track {index:03d}</div><div class="audio-card-meta">Voice: {selected_voice_label.split(" ")[0]} | Format: MP3 Stereo</div></div>', unsafe_allow_html=True)
-                            st.audio(file_path)
-                    else:
-                        st.error("No valid sentence markers found / کوئی جملہ نہیں ملا۔")
-        else:
-            st.info("System standby. Enter script, configure settings and click compile.")
-
-    st.markdown("---")
-    st.markdown("### 📘 Detailed User Guide & Overview")
-    st.write("Welcome to VocalForge AI Studio. This automation engine processes multi-lingual texts, parses them instantly by punctuation delimiters, and packs them into premium modular voice structures.")
-
-elif page == "📄 Privacy Policy":
-    st.markdown('<div class="studio-title">Privacy Policy</div>', unsafe_allow_html=True)
-    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
-    st.write("Privacy Policy Details: Your processed script segments are handled locally in memory and packaged into temporary zip modules securely.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "⚖️ Terms & Conditions":
-    st.markdown('<div class="studio-title">Terms & Conditions</div>', unsafe_allow_html=True)
-    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
-    st.write("Terms and Conditions: Users retain all rights to generated raw voice tracks and deployment layers downstream.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "ℹ️ About Us":
-    st.markdown('<div class="studio-title">About Us</div>', unsafe_allow_html=True)
-    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
-    st.write("VocalForge AI Studio is a custom multi-track narrative compilation platform built for fast high-retention automation production workflows.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "📧 Contact Us":
-    st.markdown('<div class="studio-title">Contact Us</div>', unsafe_allow_html=True)
-    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
-    st.write("For enterprise architectural deployment support, reach out via the official code repository channels.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "⚠️ Disclaimer":
-    st.markdown('<div class="studio-title">Disclaimer</div>', unsafe_allow_html=True)
-    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
-    st.write("Disclaimer: This tool acts as an independent production optimization layer for edge neural assets.")
-    st.markdown('</div>', unsafe_allow_html=True)
-
-
-# ==============================================================================
-# FIXED BOTTOM NAVIGATION BAR CONTROL
-# ==============================================================================
-st.markdown('<div class="bottom-nav-container">', unsafe_allow_html=True)
-
-nav_cols = st.columns(6)
-pages_list = ["🎙️ Studio", "📄 Privacy Policy", "⚖️ Terms & Conditions", "ℹ️ About Us", "📧 Contact Us", "⚠️ Disclaimer"]
-
-for i, p_name in enumerate(pages_list):
-    with nav_cols[i]:
-        is_active = (st.session_state.current_page == p_name)
-        if st.button(p_name, key=f"nav_btn_{i}", use_container_width=True, type="primary" if is_active else "secondary"):
-            st.session_state.current_page = p_name
-            st.rerun()
-
-st.markdown('<div class="bottom-nav-copyright">© 2026 VocalForge AI Studio | All Rights Reserved.</div>', unsafe_allow_html=True)
-st.markdown('</div>', unsafe_allow_html=True)
+                st.warning("Please enter some text
