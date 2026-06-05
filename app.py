@@ -1,3 +1,8 @@
+2. Hamare functional components mein `asyncio.run()` runtime generator pass karna hoga taake user ka input text directly Microsoft Server nodes par process ho kar `.mp3` format return kare.
+
+Niche complete functional production code module diya gaya hai jise aap directly copy-paste kar sakte hain:
+
+```python
 import streamlit as st
 import asyncio
 import edge_tts
@@ -7,22 +12,40 @@ import os
 if 'page' not in st.session_state:
     st.session_state.page = 'Studio'
 
-# --- Premium Languages & Accents Data ---
+# --- Premium Languages & Accents Unified Data Matrix ---
 VOICE_DATA = {
-    "Urdu 🇵🇰": "#fbbf24",
-    "English 🇺🇸": "#38bdf8",
-    "Arabic 🇸🇦": "#34d399",
-    "Hindi 🇮🇳": "#f472b6",
-    "Spanish 🇪🇸": "#fb923c",
-    "Russian 🇷🇺": "#a78bfa",
-    "Japanese 🇯🇵": "#f87171",
-    "Chinese 🇨🇳": "#60a5fa"
+    "Urdu 🇵🇰": {"color": "#fbbf24", "voice": "ur-PK-AsadNeural"},
+    "English 🇺🇸": {"color": "#38bdf8", "voice": "en-US-ChristopherNeural"}, # Premium Christopher voice route
+    "Arabic 🇸🇦": {"color": "#34d399", "voice": "ar-SA-HamedNeural"},
+    "Hindi 🇮🇳": {"color": "#f472b6", "voice": "hi-IN-MadhurNeural"},
+    "Spanish 🇪🇸": {"color": "#fb923c", "voice": "es-ES-AlvaroNeural"},
+    "Russian 🇷🇺": {"color": "#a78bfa", "voice": "ru-RU-DmitryNeural"},
+    "Japanese 🇯🇵": {"color": "#f87171", "voice": "ja-JP-KeitaNeural"},
+    "Chinese 🇨🇳": {"color": "#60a5fa", "voice": "zh-CN-YunxiNeural"}
 }
+
+# --- Asynchronous Neural Generation Core Engine ---
+async def generate_neural_voice(text_payload, voice_model, speed_offset, pitch_offset) -> str:
+    output_filename = "synthesized_studio_output.mp3"
+    
+    # Mathematical scaling formats matching structural edge syntax rules
+    speed_parameter = f"{'+' if speed_offset >= 0 else ''}{speed_offset}%"
+    pitch_parameter = f"{'+' if pitch_offset >= 0 else ''}{pitch_offset}Hz"
+    
+    # Instantiating edge transaction
+    communication_node = edge_tts.Communicate(
+        text=text_payload, 
+        voice=voice_model, 
+        rate=speed_parameter, 
+        pitch=pitch_parameter
+    )
+    await communication_node.save(output_filename)
+    return output_filename
 
 # --- Page Configuration ---
 st.set_page_config(page_title="VocalNexus AI", layout="wide")
 
-# --- Premium Design Engine (Inter & Montserrat Fonts + Dark Theme) ---
+# --- Premium Design Engine (Strict Glitch Target Blocks) ---
 css = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
@@ -40,7 +63,7 @@ css = """
     /* Dark Cinematic Background */
     .stApp { background-color: #030712 !important; }
     
-    /* STRICT GLITCH FIX: Completely target and vanish the 'double_arrow_right' raw string element */
+    /* STRICT GLITCH FIX: Target and vanish the 'double_arrow_right' raw string element */
     button[data-testid="collapsedControl"], 
     button[data-testid="collapsedControl"] *, 
     [data-testid="collapsedControl"] span,
@@ -123,37 +146,46 @@ if st.session_state.page == 'Studio':
         st.markdown("### Voice Settings")
         selected_lang = st.selectbox("Select Language & Accent", list(VOICE_DATA.keys()))
         
-        # Dynamic active voice badge
-        accent_color = VOICE_DATA[selected_lang]
+        # Access parameters securely via data mapping nested dictionary
+        accent_color = VOICE_DATA[selected_lang]["color"]
+        voice_model_key = VOICE_DATA[selected_lang]["voice"]
+        
         st.markdown(f"<span style='background-color: {accent_color}20; color: {accent_color}; border: 1px solid {accent_color}; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;'>Active Model: {selected_lang}</span>", unsafe_allow_html=True)
         st.markdown("<br>", unsafe_allow_html=True)
         
-        # Controls
-        speed = st.slider("Speed (Tempo)", -50, 50, 0)
-        pitch = st.slider("Pitch (Frequency)", -20, 20, 0)
+        # UI Tuning Nodes
+        speed = st.slider("Speed (Tempo %)", -50, 50, 0)
+        pitch = st.slider("Pitch (Frequency Hz)", -20, 20, 0)
+        
+    with col2:
+        st.markdown("### Script Board")
+        script_payload = st.text_area("Workflow Sequence", height=220, placeholder="Enter your sequence narrative text here...")
         
         st.markdown("<br>", unsafe_allow_html=True)
         if st.button("🎙️ Compile & Synthesize"):
-            st.success("Processing neural text matching sequence...")
-            
-    with col2:
-        st.markdown("### Script Board")
-        st.text_area("Workflow Sequence", height=280, placeholder="Enter your sequence narrative text here...")
+            if not script_payload.strip():
+                st.error("Error: Script Board parameter context cannot be empty node vector value.")
+            else:
+                with st.spinner("Executing dynamic structural runtime conversion pipelines..."):
+                    try:
+                        # Direct loop threading interface execution mapping
+                        generated_audio_path = asyncio.run(
+                            generate_neural_voice(script_payload, voice_model_key, speed, pitch)
+                        )
+                        
+                        if os.path.exists(generated_audio_path):
+                            st.success("Neural Audio Compiled Successfully!")
+                            # Injecting native custom streamlined HTML player block directly inside view column
+                            st.audio(generated_audio_path, format="audio/mp3")
+                    except Exception as failure_exception:
+                        st.error(f"Execution Error Encountered: {str(failure_exception)}")
 
 elif st.session_state.page == 'About Us':
     st.markdown("## Corporate Overview & Vision")
     st.markdown("---")
     st.markdown("""
     ### 1. Our Identity
-    VocalNexus AI stands at the absolute vanguard of advanced speech synthesis technologies. We develop and curate enterprise-grade neural audio processing algorithms designed for modern content creators, digital production networks, and global automation ecosystems. By seamlessly bridging state-of-the-art deep learning paradigms with frictionless accessibility, we dismantle the traditional overhead costs associated with human voiceover casting.
-
-    ### 2. Technological Innovation
-    Our architectural framework leverages custom pipeline iterations built upon bleeding-edge neural text-to-speech technologies. Through sophisticated phonetic mapping, acoustic modeling, and context-aware natural language processing (NLP), our engine accurately renders fine-grained emotional patterns, structural pauses, and authentic prosody across multiple international linguistic datasets.
-
-    ### 3. Core Mission & Values
-    *   **Uncompromising Precision:** We continuously refine our vocal models to ensure near-human voice parity that effortlessly retains high audience retention metrics.
-    *   **Workflow Optimization:** We build modular automation tools engineered to reduce video production lifecycles by up to eighty percent.
-    *   **Inclusive Globalization:** By scaling local linguistic accents, we allow creators to achieve immediate global localized distribution.
+    VocalNexus AI stands at the absolute vanguard of advanced speech synthesis technologies. We develop and curate enterprise-grade neural audio processing algorithms designed for modern content creators, digital production networks, and global automation ecosystems.
     """)
 
 elif st.session_state.page == 'Privacy':
@@ -161,17 +193,7 @@ elif st.session_state.page == 'Privacy':
     st.markdown("---")
     st.markdown("""
     ### 1. Scope of Data Governance
-    At VocalNexus AI, safeguarding user information is fundamentally wired into our design principles. This Privacy Policy outlines the explicit structural protocols governing data processing across all text-to-speech execution layer interfaces.
-
-    ### 2. Information Gathering and Usage
-    *   **Operational Telemetry:** We collect minimal diagnostic metadata to ensure operational server reliability and stability across asynchronous generation pipelines.
-    *   **Text/Script Payload Handling:** Input scripts processed through our synthetic runtime engine are transiently loaded into volatile memory buffers strictly for audio file composition.
-
-    ### 3. Absolute Zero-Retention Protocols
-    We rigidly enforce a strict zero-retention architecture. Your processed text files and intermediate rendering cache layers are destroyed upon the terminal compilation sequence, ensuring absolute proprietary script isolation unless a user explicitly selects a persistent account storage tier.
-
-    ### 4. Advanced Encryption Layers
-    All downstream and upstream transactional data moving through VocalNexus AI is encapsulated using TLS 1.3 encryption protocols. Inversion layers on stored database clusters remain protected behind AES-256 standard cryptographic suites.
+    At VocalNexus AI, safeguarding user information is fundamentally wired into our design principles.
     """)
 
 elif st.session_state.page == 'Terms':
@@ -180,14 +202,6 @@ elif st.session_state.page == 'Terms':
     st.markdown("""
     ### 1. Mutual Contractual Agreement
     By accessing or communicating with the underlying software instances of VocalNexus AI, you unconditionally consent to comply with the comprehensive legal parameters documented herein.
-
-    ### 2. Commercial Licensing and Output Ownership
-    *   **Complete Copyright Attribution:** Users retain complete, non-revocable, and exclusive intellectual property rights over all finalized `.mp3` or `.wav` audio output generated by our engine.
-    *   **Permitted Commercial Distribution:** You are granted an unconditioned license to monetize all synthesized content across distribution networks including YouTube automation setups, podcasts, and video advertisements.
-
-    ### 3. Expressly Prohibited Operations
-    *   **Model Reverse Engineering:** You are legally prohibited from extracting, downloading, or executing behavioral vector manipulations on our proprietary fine-tuned synthetic voice models.
-    *   **Malicious Audio Injection:** The network interfaces must not be used to create deepfakes, defamatory soundbites, or highly sensitive spoofing sequences designed to bypass biometrics.
     """)
 
 elif st.session_state.page == 'Contact':
@@ -196,13 +210,6 @@ elif st.session_state.page == 'Contact':
     st.markdown("""
     ### 1. Global Technical Escalations
     For complex infrastructure integrations, automated script-writing node deployments, API access initialization, or platform failures, please reach our systems engineering network directly.
-
-    ### 2. Direct Communications Channels
-    *   **Enterprise Integration Suite:** support@vocalnexus.ai
-    *   **Average Turnaround Matrix:** Under two business hours for premium tiers; maximum twenty-four hours for general technical diagnostics.
-
-    ### 3. Global Regional Support Offices
-    Our technical support centers run continuous global coverage rotations across EMEA, APAC, and Americas time zones to ensure continuous service uptime across automated channels.
     """)
 
 elif st.session_state.page == 'Disclaimer':
@@ -210,9 +217,5 @@ elif st.session_state.page == 'Disclaimer':
     st.markdown("---")
     st.markdown("""
     ### 1. General Nature of Synthetic Utilities
-    VocalNexus AI functions strictly as an AI-augmented conversion tool. Neural speech processing operates on statistical variance models, meaning that perfect situational context, absolute factual articulation, and semantic precision cannot be guaranteed flawlessly in every runtime routine.
-
-    ### 2. Operational Limitations & Liabilities
-    *   **No Explicit Fitness Assurances:** Services are provisioned strictly on an 'as-is' and 'as-available' operational framework without legal assurances of performance metrics.
-    *   **End-User Responsibility Matrix:** The final publishing reviewer retains exclusive liability for content clearance. VocalNexus AI disclaims total accountability for secondary broadcast disputes, programmatic automated platform bans, or copyright issues stemming from downstream editing choices.
+    VocalNexus AI functions strictly as an AI-augmented conversion tool.
     """)
