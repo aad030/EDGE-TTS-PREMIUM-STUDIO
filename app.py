@@ -58,7 +58,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- CSS Short Lines Array (Preventing Wrap Breaks) ---
+# --- CSS Array (Animations Removed - Clean Static BG) ---
 css_chunks = [
     "<style>",
     ".stApp {",
@@ -69,7 +69,9 @@ css_chunks = [
     ".stApp::before {",
     "  content: ''; position: fixed;",
     "  top: 0; left: 0; right: 0; bottom: 0; z-index: -2;",
-    "  background-size: cover; background-position: center;",
+    "  background-size: cover;",
+    "  background-position: center;",
+    "  background-repeat: no-repeat;",
     "  background-image: url(",
     "    'https://images.unsplash.com/photo-1516280440614-37939bbacd6a'",
     "  );",
@@ -176,4 +178,54 @@ if page == "🎙️ Studio":
                         zip_buf = io.BytesIO()
                         with zipfile.ZipFile(zip_buf, "w") as zf:
                             for f_path in files:
-                                zf.write(f_path, os.path
+                                zf.write(f_path, os.path.basename(f_path))
+                        zip_buf.seek(0)
+                        
+                        st.download_button(
+                            label="🚀 Export All Tracks (ZIP)",
+                            data=zip_buf,
+                            file_name="vocalforge_tracks.zip",
+                            mime="application/zip",
+                            use_container_width=True
+                        )
+                        
+                        for idx, f_path in enumerate(files, start=1):
+                            st.markdown(
+                                f'<div class="audio-card">'
+                                f'<div class="audio-card-title">'
+                                f'🎵 Track {idx:03d}</div></div>', 
+                                unsafe_allow_html=True
+                            )
+                            st.audio(f_path)
+                    else:
+                        st.error("No valid sentences found.")
+        else:
+            st.info("System standby. Enter text and compile.")
+
+else:
+    st.markdown(
+        f'<h1 class="studio-title">{page}</h1>', 
+        unsafe_allow_html=True
+    )
+    st.write("Dynamic local module content loaded successfully.")
+
+# --- Bottom Navigation ---
+st.markdown('<div class="bottom-nav-container">', unsafe_allow_html=True)
+nav_cols = st.columns(6)
+p_list = [
+    "🎙️ Studio", "📄 Privacy", "⚖️ Terms", 
+    "ℹ️ About", "📧 Contact", "⚠️ Disclaimer"
+]
+
+for i, p_name in enumerate(p_list):
+    with nav_cols[i]:
+        is_act = (st.session_state.current_page == p_name)
+        if st.button(
+            p_name, 
+            key=f"nav_{i}", 
+            use_container_width=True, 
+            type="primary" if is_act else "secondary"
+        ):
+            st.session_state.current_page = p_name
+            st.rerun()
+st.markdown('</div>', unsafe_allow_html=True)
