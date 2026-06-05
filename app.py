@@ -70,7 +70,7 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
 # --- Premium UI Page Configuration ---
 st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
-# --- Custom Premium Dark CSS with Dynamic Wallpaper Background ---
+# --- Custom Premium Dark CSS with Dynamic Wallpaper Background & Fixed Bottom Nav ---
 st.markdown("""
     <style>
     .stApp {
@@ -80,6 +80,7 @@ st.markdown("""
         background-position: center;
         background-attachment: fixed;
         color: #f8fafc;
+        padding-bottom: 120px !important; /* Space for bottom nav */
     }
     div[data-testid="stForm"] {
         background: rgba(15, 23, 42, 0.45) !important;
@@ -144,21 +145,37 @@ st.markdown("""
         margin-top: 10px;
         backdrop-filter: blur(12px);
     }
+    
+    /* Bottom Navigation Bar Container Styling */
+    .bottom-nav-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.8) !important;
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 40px;
+        z-index: 99999;
+        text-align: center;
+    }
+    .bottom-nav-copyright {
+        font-size: 11px;
+        color: #64748b;
+        margin-top: 5px;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# --- Sidebar Navigation Menu (AdSense Requirement) ---
-st.sidebar.markdown("## 🧭 Navigation")
-page = st.sidebar.radio(
-    "Go to:",
-    ["🎙️ Studio", "📄 Privacy Policy", "⚖️ Terms & Conditions", "ℹ️ About Us", "📧 Contact Us", "⚠️ Disclaimer"]
-)
+# Initialize Session State for Page Navigation
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "🎙️ Studio"
 
-st.sidebar.markdown("---")
-st.sidebar.markdown("© 2026 VocalForge AI Studio | All Rights Reserved.")
+# Get current page to render content
+page = st.session_state.current_page
 
 # ==============================================================================
-# PAGE 1: MAIN STUDIO
+# PAGE RENDER LOGIC
 # ==============================================================================
 if page == "🎙️ Studio":
     st.markdown('<div class="studio-title">VOCALFORGE AI STUDIO</div>', unsafe_allow_html=True)
@@ -232,116 +249,71 @@ if page == "🎙️ Studio":
     st.write("""
     Welcome to the **VocalForge AI Studio**. This web utility leverages advanced cognitive neural speech architectures to transform multilingual textual content into modular audio elements. 
     Whether you are building cash-cow automation workflows or highly engaging cinematic documentaries across multiple global languages, our system eliminates manual splitting pipelines.
-    
-    #### How It Works:
-    1. **Text Segmentation:** The backend parsing engine processes inputs and tokenizes textual information based on language-specific sentence terminators like periods (`.`), khatma (`۔`), poorna viram (`।`), or global punctuation marks.
-    2. **Neural Synthesizing:** Selected vocal models process individual data tracks independently using asynchronous execution routines to maintain high performance.
-    3. **Timeline Deployment:** Audio outputs are delivered sequentially (`track_001.mp3`, `track_002.mp3`), making it instantly compatible with editing software like Adobe Premiere Pro, CapCut, or DaVinci Resolve.
     """)
 
-# ==============================================================================
-# PAGE 2: PRIVACY POLICY
-# ==============================================================================
 elif page == "📄 Privacy Policy":
     st.markdown('<div class="studio-title">Privacy Policy</div>', unsafe_allow_html=True)
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
     st.write("**Last Updated: June 2026**")
     st.write("""
     At VocalForge AI Studio, accessible from this web application, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by our platform and how we use it.
-
-    ### 1. Log Files
-    VocalForge AI Studio follows a standard procedure of using log files. These files log visitors when they visit web applications. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable.
-
-    ### 2. Cookies and Web Beacons
-    Like any other website, our studio uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.
-
-    ### 3. Google DoubleClick DART Cookie
-    Google is one of the third-party vendors on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our platform and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy.
-
-    ### 4. Third-Party Privacy Policies
-    Our platform's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
     """)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ==============================================================================
-# PAGE 3: TERMS & CONDITIONS
-# ==============================================================================
 elif page == "⚖️ Terms & Conditions":
     st.markdown('<div class="studio-title">Terms & Conditions</div>', unsafe_allow_html=True)
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
     st.write("**Last Updated: June 2026**")
     st.write("""
     Welcome to VocalForge AI Studio! By accessing this website, we assume you accept these terms and conditions. Do not continue to use VocalForge AI Studio if you do not agree to take all of the terms and conditions stated on this page.
-
-    ### 1. License & Intellectual Property
-    Unless otherwise stated, VocalForge AI Studio and/or its licensors own the intellectual property rights for all code and material on this application. All intellectual property rights are reserved. You may access this from VocalForge AI Studio for your own personal use subjected to restrictions set in these terms and conditions.
-
-    ### 2. User Restrictions
-    You are specifically restricted from all of the following:
-    * Publishing our application code anywhere without appropriate attribution.
-    * Selling, sublicensing, and/or otherwise commercializing any website material.
-    * Using this application in any way that is or may be damaging to this website.
-    * Using this application contrary to applicable laws and regulations.
-
-    ### 3. Voice Assets Usage
-    The voice generation functionality utilizes experimental downstream API libraries. Users are solely responsible for ensuring that the voice assets generated conform to the content policy parameters of their chosen publication platforms (e.g., YouTube, TikTok).
     """)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ==============================================================================
-# PAGE 4: ABOUT US
-# ==============================================================================
 elif page == "ℹ️ About Us":
     st.markdown('<div class="studio-title">About Us</div>', unsafe_allow_html=True)
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
     st.write("""
     ### Welcome to VocalForge AI Studio
-
-    VocalForge AI Studio is a cutting-edge web utility engineered specifically for next-generation content creators, video editors, and cross-platform automation specialists. Our primary mission is to simplify the content synthesis workflow by bridging the gap between sophisticated neural audio models and modern non-linear editing (NLE) suites.
-
-    #### Why Choose Us?
-    Traditional Text-to-Speech solutions generate massive, single-track audio blocks that require hours of meticulous splicing on editing timelines. VocalForge AI Studio dynamically parses textual scripts into logical linguistic elements, synthesizing independent, high-fidelity sound tracks in structural sequence across an extensive catalog of global languages including Urdu, English, Hindi, Arabic, Bengali, Pashto, Sindhi, Punjabi, Turkish, Persian, Spanish, and French.
-
-    #### Core Values
-    * **Efficiency:** Minimizing time spent on asset slicing.
-    * **Accessibility:** Providing clean open-source frameworks for developers globally.
-    * **Innovation:** Utilizing modern asynchronous workflows for swift production pipelines.
+    VocalForge AI Studio is a cutting-edge web utility engineered specifically for next-generation content creators, video editors, and cross-platform automation specialists.
     """)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ==============================================================================
-# PAGE 5: CONTACT US
-# ==============================================================================
 elif page == "📧 Contact Us":
     st.markdown('<div class="studio-title">Contact Us</div>', unsafe_allow_html=True)
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
     st.write("""
-    If you have any questions, feedback, feature requests, or technical inquiries regarding our studio application, feel free to reach out to us. We aim to respond within 24 to 48 hours.
-
+    If you have any questions, feedback, feature requests, or technical inquiries regarding our studio application, feel free to reach out to us.
     ### 📩 Contact Channels
     * **Email Support:** `support@vocalforge-studio.example.com`
-    * **Developer Repository:** Feel free to open an issue on our official GitHub repository for bugs or code improvements.
-    * **Social Presence:** Connect with our official development profile on Twitter (X) for tech updates.
-
-    *Note: Please avoid sharing any sensitive credential configurations or personal access tokens when initiating support requests.*
     """)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ==============================================================================
-# PAGE 6: DISCLAIMER
-# ==============================================================================
 elif page == "⚠️ Disclaimer":
     st.markdown('<div class="studio-title">Disclaimer</div>', unsafe_allow_html=True)
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
     st.write("**Last Updated: June 2026**")
     st.write("""
-    ### 1. General Information Only
-    All the information and tools on this website are published in good faith and for general information and productivity purposes only. VocalForge AI Studio does not make any warranties about the completeness, reliability, and accuracy of this utility. Any action you take upon the information you find on this website is strictly at your own risk.
-
-    ### 2. Third-Party Affiliation
-    This application is an independent development project. It is **not** officially affiliated with, endorsed by, sponsored by, or in any way connected to Microsoft Corporation or any of its subsidiaries. The voice assets and underlying synthesizer models are powered by the available `edge-tts` python execution layer.
-
-    ### 3. Financial and Liability Limitation
-    In no event will VocalForge AI Studio be liable for any loss or damage including without limitation, indirect or consequential loss or damage, arising from loss of data or production timeline delays in connection with the use of this free tool.
+    All the information and tools on this website are published in good faith and for general information and productivity purposes only.
     """)
     st.markdown('</div>', unsafe_allow_html=True)
+
+
+# ==============================================================================
+# INJECTED FIXED BOTTOM NAVIGATION BAR
+# ==============================================================================
+st.markdown('<div class="bottom-nav-container">', unsafe_allow_html=True)
+
+# Streamlit ke elements column wise alignment mein horizontal render honge
+nav_cols = st.columns(6)
+pages_list = ["🎙️ Studio", "📄 Privacy Policy", "⚖️ Terms & Conditions", "ℹ️ About Us", "📧 Contact Us", "⚠️ Disclaimer"]
+
+for i, p_name in enumerate(pages_list):
+    with nav_cols[i]:
+        # Active page ka button alag look dega
+        is_active = (st.session_state.current_page == p_name)
+        if st.button(p_name, key=f"nav_btn_{i}", use_container_width=True, type="primary" if is_active else "secondary"):
+            st.session_state.current_page = p_name
+            st.rerun()
+
+st.markdown('<div class="bottom-nav-copyright">© 2026 VocalForge AI Studio | All Rights Reserved.</div>', unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
