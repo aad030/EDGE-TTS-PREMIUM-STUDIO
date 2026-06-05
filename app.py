@@ -70,7 +70,7 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
 # --- Premium UI Page Configuration ---
 st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
-# --- CSS Injection Phase (100% Responsive Blueprint to prevent UI squeezing) ---
+# --- CSS Injection Phase (Safe Standard List Concatenation - Zero String Literal Errors) ---
 css_lines = [
     "<style>",
     ".stApp { background: transparent !important; position: relative; overflow-x: hidden; padding-bottom: 240px !important; }",
@@ -112,26 +112,37 @@ if page == "🎙️ Studio":
     st.markdown('<div class="studio-title">VOCALFORGE AI STUDIO</div>', unsafe_allow_html=True)
     st.markdown('<div class="studio-subtitle">Global Multi-Voice Sentence Splitter & Generator | ملٹی لنگول اسٹوڈیو</div>', unsafe_allow_html=True)
 
-    # 50-50 Standard Secure Split
+    # 50-50 Standard Secure Split 
     col_left, col_right = st.columns(2, gap="large")
 
     with col_left:
         st.markdown("### 📝 Script Input / یہاں اسکرپٹ لکھیں")
-        input_text = st.text_area("Input Text", placeholder="Paste your script here in any language...\nیہاں اپنا اسکرپٹ پیسٹ کریں...", height=250, label_visibility="collapsed")
+        input_text = st.text_area("Input Text", placeholder="Paste your script here...", height=250, label_visibility="collapsed")
         
-        st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگز")
+        st.markdown("### ⚙️ Voice Settings / آواز ki setting")
         
         selected_voice_label = st.selectbox("Choose Actor Voice / آواز کا انتخاب کریں", options=list(VOICES.keys()), index=0)
         selected_voice_id = VOICES[selected_voice_label]
         
-        speed_slider = st.slider("Speed Adjustment (%) / آواز کی رفتار", min_value=-50, max_value=50, value=0, step=1)
-        pitch_slider = st.slider("Pitch Adjustment (Hz) / آواز کا پچ", min_value=-20, max_value=20, value=0, step=1)
+        speed_slider = st.slider("Speed Adjustment (%)", min_value=-50, max_value=50, value=0, step=1)
+        pitch_slider = st.slider("Pitch Adjustment (Hz)", min_value=-20, max_value=20, value=0, step=1)
         
-        generate_clicked = st.button("🎙️ Compile Audio Assets / آواز بنائیں", type="primary", use_container_width=True)
+        generate_clicked = st.button("🎙️ Compile Audio Assets", type="primary", use_container_width=True)
 
     with col_right:
         st.markdown("### 📁 Compiled Voice Tracks / آڈیوز")
         
         if generate_clicked:
             if not input_text.strip():
-                st.warning("Please enter some text
+                st.warning("Please enter some text first!")
+            else:
+                with st.spinner("Compiling tracks..."):
+                    files = asyncio.run(generate_voice_tracks(input_text, selected_voice_id, speed_slider, pitch_slider))
+                    
+                    if files:
+                        st.toast("Tracks compiled successfully!")
+                        
+                        zip_buffer = io.BytesIO()
+                        with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+                            for file_path in files:
+                                zip_file.write(file_path, os.path.basename(file_path))
