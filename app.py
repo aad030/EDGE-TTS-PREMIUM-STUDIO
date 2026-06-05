@@ -58,7 +58,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 10 Premium Aesthetic Studio Wallpaper Assets ---
+# --- 10 Premium Aesthetic Studio & Abstract Tech Backgrounds ---
 img1 = "https://images.unsplash.com/photo-1516280440614-37939bbacd6a"
 img2 = "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04"
 img3 = "https://images.unsplash.com/photo-1478737270239-2f02b77fc618"
@@ -70,21 +70,25 @@ img8 = "https://images.unsplash.com/photo-1459749411175-04bf5292ceea"
 img9 = "https://images.unsplash.com/photo-1465847899084-d164df4dedc6"
 img10 = "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad"
 
-# --- Infinite CSS Engine with Strict Bottom Nav Circle Targets ---
+# --- Premium UI CSS Engine matching Gemini_Generated_Image_p0n3l5p0n3l5p0n3.png ---
 css_chunks = [
     "<style>",
+    "/* App Container and Golden Cinematic Border Wrapper */",
     ".stApp {",
     "  background: transparent !important;",
     "  overflow-x: hidden;",
-    "  padding-bottom: 280px !important;",
+    "  padding: 20px !important;",
+    "  padding-bottom: 240px !important;",
     "}",
     ".stApp::before {",
     "  content: ''; position: fixed;",
-    "  top: 0; left: 0; right: 0; bottom: 0; z-index: -2;",
+    "  top: 10px; left: 10px; right: 10px; bottom: 10px;",
+    "  z-index: -2;",
     "  background-size: cover;",
     "  background-position: center;",
     "  background-repeat: no-repeat;",
-    "  background-attachment: fixed;",
+    "  border: 3px solid rgba(212, 175, 55, 0.6); /* Premium Gold Frame */",
+    "  border-radius: 16px;",
     "  animation: bgInfiniteSlider 60s infinite ease-in-out;",
     "}",
     "@keyframes bgInfiniteSlider {",
@@ -101,131 +105,143 @@ css_chunks = [
     "}",
     ".stApp::after {",
     "  content: ''; position: fixed;",
-    "  top: 0; left: 0; right: 0; bottom: 0; z-index: -1;",
-    "  background: linear-gradient(",
-    "    rgba(3, 7, 20, 0.88), rgba(11, 18, 40, 0.95)",
-    "  );",
+    "  top: 10px; left: 10px; right: 10px; bottom: 10px; z-index: -1;",
+    "  background: linear-gradient(135deg, rgba(5, 12, 32, 0.92), rgba(10, 20, 42, 0.96));",
+    "  border-radius: 14px;",
     "}",
     ".block-container {",
-    "  padding: 2.5rem 3.5rem !important;",
+    "  padding: 2rem 3rem !important;",
     "}",
-    "h1, h2, h3, p, label, span {",
-    "  color: #f8fafc !important;",
-    "  white-space: normal !important;",
+    "/* Voice Settings Premium Title Header */",
+    ".voice-settings-header {",
+    "  font-family: 'Georgia', serif;",
+    "  color: #dfba6b !important; /* Elegant Gold Heading */",
+    "  font-weight: 600;",
+    "  font-size: 2.3rem;",
+    "  margin-bottom: 1.5rem;",
+    "  text-shadow: 0px 2px 8px rgba(0,0,0,0.7);",
     "}",
+    "/* Glassmorphism Containers for Inputs */",
+    "div[data-testid='stSelectbox'], div[data-testid='stSlider'] {",
+    "  background: rgba(20, 28, 50, 0.6) !important;",
+    "  border: 1px solid rgba(255, 255, 255, 0.15) !important;",
+    "  border-radius: 10px !important;",
+    "  padding: 12px 20px !important;",
+    "  margin-bottom: 12px !important;",
+    "  box-shadow: inset 0 1px 4px rgba(255,255,255,0.05), 0 4px 15px rgba(0,0,0,0.3);",
+    "}",
+    "label, p, span, div {",
+    "  color: #e2e8f0 !important;",
+    "}",
+    "/* Custom Style for Text Area */",
     ".stTextArea textarea {",
-    "  background-color: rgba(15, 23, 42, 0.95) !important;",
+    "  background-color: rgba(10, 16, 32, 0.85) !important;",
     "  color: #f8fafc !important;",
-    "  border: 1px solid rgba(56, 189, 248, 0.4) !important;",
+    "  border: 1px solid rgba(212, 175, 55, 0.3) !important;",
     "  border-radius: 12px !important;",
     "}",
-    ".audio-card {",
-    "  background: rgba(30, 41, 59, 0.9);",
-    "  border: 1px solid rgba(56, 189, 248, 0.3);",
-    "  border-radius: 12px; padding: 16px; margin-bottom: 14px;",
+    "/* Metallic Center Compilation Button */",
+    ".compile-container {",
+    "  text-align: center;",
+    "  margin: 2rem auto;",
+    "  max-width: 500px;",
     "}",
-    ".audio-card-title {",
-    "  color: #38bdf8 !important; font-weight: 600;",
-    "}",
-    ".studio-title {",
-    "  font-weight: 800; font-size: 2.5rem;",
-    "  color: #38bdf8 !important;",
-    "}",
-    ".bottom-nav-container {",
-    "  position: fixed; bottom: 0; left: 0; right: 0;",
-    "  background: #080c1a !important;",
-    "  border-top: 1px solid rgba(56, 189, 248, 0.3);",
-    "  padding: 25px 40px; z-index: 999999; text-align: center;",
-    "}",
-    "/* Isolate Circle Styles specifically to the Bottom Container Columns */",
-    ".bottom-nav-container div[data-testid='stHorizontalBlock'] button {",
-    "  border-radius: 50% !important;",
-    "  width: 95px !important;",
-    "  height: 95px !important;",
-    "  padding: 0px !important;",
-    "  font-size: 13px !important;",
+    ".compile-container button {",
+    "  background: linear-gradient(180deg, #eeeeee 0%, #cccccc 40%, #999999 100%) !important;",
+    "  border: 2px solid #38bdf8 !important;",
+    "  border-radius: 12px !important;",
+    "  color: #111827 !important;",
     "  font-weight: 800 !important;",
-    "  color: #000000 !important;",
-    "  border: 2px solid #ffffff !important;",
-    "  display: inline-flex !important;",
-    "  align-items: center !important;",
-    "  justify-content: center !important;",
-    "  text-align: center !important;",
-    "  box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;",
-    "  transition: transform 0.2s, box-shadow 0.2s !important;",
+    "  font-size: 16px !important;",
+    "  letter-spacing: 1px !important;",
+    "  padding: 18px 30px !important;",
+    "  height: auto !important;",
+    "  width: 100% !important;",
+    "  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6), inset 0 1px 2px #ffffff !important;",
+    "  text-transform: uppercase;",
+    "  transition: all 0.3s ease !important;",
+    "}",
+    ".compile-container button:hover {",
+    "  transform: scale(1.02) !important;",
+    "  box-shadow: 0 0 30px rgba(56, 189, 248, 0.9) !important;",
+    "}",
+    "/* Bottom Fixed Glass Bar */",
+    ".bottom-nav-container {",
+    "  position: fixed; bottom: 20px; left: 30px; right: 30px;",
+    "  background: rgba(4, 8, 20, 0.95) !important;",
+    "  border-top: 1px solid rgba(212, 175, 55, 0.3);",
+    "  padding: 20px; z-index: 999999; text-align: center;",
+    "  border-radius: 14px;",
+    "}",
+    "/* Capsule Page Action Buttons */",
+    ".bottom-nav-container div[data-testid='stHorizontalBlock'] button {",
+    "  border-radius: 10px !important;",
+    "  height: 56px !important;",
+    "  width: 100% !important;",
+    "  font-size: 15px !important;",
+    "  font-weight: 700 !important;",
+    "  color: #ffffff !important; /* High Contrast White Text */",
+    "  border: 1px solid rgba(255,255,255,0.2) !important;",
+    "  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;",
+    "  transition: all 0.2s ease !important;",
     "}",
     ".bottom-nav-container div[data-testid='stHorizontalBlock'] button:hover {",
-    "  transform: scale(1.1) !important;",
-    "  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4) !important;",
+    "  transform: translateY(-3px) !important;",
+    "  box-shadow: 0 6px 18px rgba(255,255,255,0.2) !important;",
     "}",
-    "/* Unique Colors injected per column node */",
-    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(1) button { background: #38bdf8 !important; }",
-    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(2) button { background: #34d399 !important; }",
-    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(3) button { background: #fbbf24 !important; }",
-    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(4) button { background: #fb923c !important; }",
-    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(5) button { background: #f472b6 !important; }",
-    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(6) button { background: #a78bfa !important; }",
+    "/* Specific Capsules Gradient Custom Color Nodes mapped to Screenshot */",
+    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(1) button { background: linear-gradient(90deg, #1e3a8a, #3b82f6) !important; } /* Studio - Blue */",
+    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(2) button { background: linear-gradient(90deg, #064e3b, #10b981) !important; } /* Privacy - Green */",
+    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(3) button { background: linear-gradient(90deg, #78350f, #d97706) !important; } /* Terms - Gold/Bronze */",
+    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(4) button { background: linear-gradient(90deg, #7f1d1d, #ef4444) !important; } /* Contact - Crimson Red */",
+    ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(5) button { background: transparent !important; border: 2px dashed #facc15 !important; color: #facc15 !important; } /* Disclaimer - Outlined Glowing Yellow */",
     "</style>"
 ]
 st.markdown("".join(css_chunks), unsafe_allow_html=True)
 
 if "current_page" not in st.session_state:
-    st.session_state.current_page = "🎙️ Studio"
+    st.session_state.current_page = "Studio"
 
 page = st.session_state.current_page
 
-# --- Router ---
-if page == "🎙️ Studio":
-    st.markdown(
-        '<h1 class="studio-title">VOCALFORGE AI STUDIO</h1>', 
-        unsafe_allow_html=True
-    )
-    st.write("Global Multi-Voice Splitter | ملٹی لنگول اسٹوڈیو")
-
-    col_left, col_right = st.columns(2, gap="large")
+# --- Router Dashboard Layout ---
+if page == "Studio":
+    col_left, col_right = st.columns([1.1, 0.9], gap="large")
 
     with col_left:
-        st.subheader("📝 Script Input")
-        input_text = st.text_area(
-            "Input Text", 
-            placeholder="Paste script here...", 
-            height=220, 
-            label_visibility="collapsed"
-        )
+        st.markdown('<h2 class="voice-settings-header">Voice Settings</h2>', unsafe_allow_html=True)
         
-        st.subheader("⚙️ Voice Settings")
         sel_voice = st.selectbox(
-            "Select Voice / آواز", 
+            "Select Voice", 
             options=list(VOICES.keys()), 
             index=0
         )
         voice_id = VOICES[sel_voice]
         
-        speed = st.slider("Speed (%)", -50, 50, 0, 1)
-        pitch = st.slider("Pitch (Hz)", -20, 20, 0, 1)
+        speed = st.slider("Speed", -50, 50, 0, 1)
+        pitch = st.slider("Pitch", -20, 20, 0, 1)
         
-        generate_clicked = st.button(
-            "🎙️ Compile Audio Assets", 
-            type="primary", 
-            use_container_width=True
-        )
+        # Wrapped compile process inside a centered customized wrapper node
+        st.markdown('<div class="compile-container">', unsafe_allow_html=True)
+        generate_clicked = st.button("🎙️ Compile & Synthesize Audio")
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col_right:
-        st.subheader("📁 Compiled Voice Tracks")
+        st.markdown('<h2 class="voice-settings-header" style="color:#38bdf8;">Script Board</h2>', unsafe_allow_html=True)
+        input_text = st.text_area(
+            "Input Text Dashboard", 
+            placeholder="Enter your sequence narrative workflow scripts here...", 
+            height=200, 
+            label_visibility="collapsed"
+        )
         
         if generate_clicked:
             if not input_text.strip():
-                st.warning("Please enter some text first!")
+                st.warning("Script empty! Please write some lines first.")
             else:
-                with st.spinner("Compiling tracks..."):
-                    files = asyncio.run(
-                        generate_voice_tracks(
-                            input_text, voice_id, speed, pitch
-                        )
-                    )
-                    
+                with st.spinner("Processing Synthesis..."):
+                    files = asyncio.run(generate_voice_tracks(input_text, voice_id, speed, pitch))
                     if files:
-                        st.toast("Tracks compiled!")
                         zip_buf = io.BytesIO()
                         with zipfile.ZipFile(zip_buf, "w") as zf:
                             for f_path in files:
@@ -233,48 +249,29 @@ if page == "🎙️ Studio":
                         zip_buf.seek(0)
                         
                         st.download_button(
-                            label="🚀 Export All Tracks (ZIP)",
+                            label="📦 Download Packaged Tracks (ZIP)",
                             data=zip_buf,
-                            file_name="vocalforge_tracks.zip",
+                            file_name="vocalforge_package.zip",
                             mime="application/zip",
                             use_container_width=True
                         )
                         
                         for idx, f_path in enumerate(files, start=1):
-                            st.markdown(
-                                f'<div class="audio-card">'
-                                f'<div class="audio-card-title">'
-                                f'🎵 Track {idx:03d}</div></div>', 
-                                unsafe_allow_html=True
-                            )
                             st.audio(f_path)
-                    else:
-                        st.error("No valid sentences found.")
-        else:
-            st.info("System standby. Enter text and compile.")
 
 else:
-    st.markdown(
-        f'<h1 class="studio-title">{page}</h1>', 
-        unsafe_allow_html=True
-    )
-    st.write("Dynamic local module content loaded successfully.")
+    st.markdown(f'<h1 class="voice-settings-header">{page} Modules</h1>', unsafe_allow_html=True)
+    st.write(f"System loaded sub-environment sequence content for profile partition: {page}")
 
-# --- Bottom Navigation ---
+# --- Bottom Horizontal Navigation Layout ---
 st.markdown('<div class="bottom-nav-container">', unsafe_allow_html=True)
-nav_cols = st.columns(6)
-p_list = [
-    "🎙️ Studio", "📄 Privacy", "⚖️ Terms", 
-    "ℹ️ About", "📧 Contact", "⚠️ Disclaimer"
-]
+nav_cols = st.columns(5)
+p_list = ["Studio", "Privacy", "Terms", "Contact", "Disclaimer"]
+icons = ["🎙️ ", "🛡️ ", "📄 ", "📞 ", "⚠️ "]
 
 for i, p_name in enumerate(p_list):
     with nav_cols[i]:
-        if st.button(
-            p_name, 
-            key=f"nav_{i}", 
-            use_container_width=True
-        ):
+        if st.button(f"{icons[i]}{p_name}", key=f"btn_nav_{i}"):
             st.session_state.current_page = p_name
             st.rerun()
 st.markdown('</div>', unsafe_allow_html=True)
