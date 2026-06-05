@@ -70,18 +70,18 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
 # --- Premium UI Page Configuration ---
 st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
-# --- CSS Injection: Seamless UI with Cross-Fading Voice Studio Slider ---
+# --- CSS Injection: Deep Customization & Isolated Slider Architecture ---
 st.markdown("""
     <style>
-    /* Main App Layer Core Setup */
+    /* Absolute Isolation for App Layout Container */
     .stApp {
-        background: none !important;
+        background: transparent !important;
         position: relative;
-        overflow: hidden;
-        padding-bottom: 160px !important;
+        overflow-x: hidden;
+        padding-bottom: 180px !important;
     }
     
-    /* Background Slider Layer (Stays fixed behind content blocks) */
+    /* Fixed Dynamic Slider Background Stacked at Bottom Layer (-2) */
     .stApp::before {
         content: "";
         position: fixed;
@@ -93,73 +93,76 @@ st.markdown("""
         animation: backgroundSlider 24s infinite ease-in-out;
     }
 
-    /* Dark Cyberpunk Gradient Matrix for Text Visibility Protection */
+    /* Cinematic High-Contrast Dark Matrix Overlay Layer (-1) */
     .stApp::after {
         content: "";
         position: fixed;
         top: 0; left: 0; right: 0; bottom: 0;
         z-index: -1;
-        background: linear-gradient(rgba(4, 8, 24, 0.78), rgba(12, 20, 42, 0.88));
+        background: linear-gradient(rgba(3, 7, 20, 0.82), rgba(11, 18, 40, 0.92));
         pointer-events: none;
     }
 
     @keyframes backgroundSlider {
         0%, 100% {
-            background-image: url("https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=2070&auto=format&fit=crop"); /* Studio mic */
+            background-image: url("https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=2070&auto=format&fit=crop");
         }
         33% {
-            background-image: url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop"); /* Equalizer board */
+            background-image: url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop");
         }
         66% {
-            background-image: url("https://images.unsplash.com/photo-1516280440614-37939bbacd6a?q=80&w=2070&auto=format&fit=crop"); /* Audio Frequency */
+            background-image: url("https://images.unsplash.com/photo-1516280440614-37939bbacd6a?q=80&w=2070&auto=format&fit=crop");
         }
     }
 
-    /* Streamlit Structural Block Overrides for Proper Layout Rendering */
-    div[data-testid="stVerticalBlock"] {
-        background: transparent !important;
+    /* Ensuring Streamlit Elements remain above the background */
+    div[data-testid="stVerticalBlock"] > div {
+        position: relative;
+        z-index: 10;
     }
-    
-    /* Input Form Containers & Custom Cards (Glassmorphic Blueprint) */
+
+    /* Global Text Visibility Rules */
+    h1, h2, h3, p, label, span {
+        color: #f8fafc !important;
+    }
+
+    /* Glassmorphism Control Panel Styling */
     .stTextArea textarea {
-        background-color: rgba(11, 19, 41, 0.75) !important;
+        background-color: rgba(11, 19, 41, 0.8) !important;
         color: #f8fafc !important;
         border: 1px solid rgba(255, 255, 255, 0.15) !important;
         border-radius: 12px !important;
         font-size: 16px !important;
-        backdrop-filter: blur(8px);
+        backdrop-filter: blur(10px);
     }
     .stTextArea textarea:focus {
         border-color: #38bdf8 !important;
         box-shadow: 0 0 12px rgba(56, 189, 248, 0.4) !important;
     }
     
-    /* Output Asset Track Elements */
+    /* Compiled Track Cards layout */
     .audio-card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.65), rgba(15, 23, 42, 0.75));
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
         padding: 16px;
         margin-bottom: 14px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
         backdrop-filter: blur(12px);
     }
     .audio-card-title {
-        color: #38bdf8;
+        color: #38bdf8 !important;
         font-weight: 600;
         font-size: 15px;
         margin-bottom: 4px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
     }
     .audio-card-meta {
-        color: #94a3b8;
+        color: #94a3b8 !important;
         font-size: 12px;
         margin-bottom: 8px;
     }
     
-    /* Professional Premium Typography Blocks */
+    /* Typography Customizations */
     .studio-title {
         background: linear-gradient(to right, #38bdf8, #818cf8);
         -webkit-background-clip: text;
@@ -175,35 +178,19 @@ st.markdown("""
         margin-bottom: 2.2rem;
     }
     .legal-box {
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 23, 42, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
         padding: 24px;
         margin-top: 10px;
         backdrop-filter: blur(12px);
     }
     
-    /* Fixed Glassmorphic Navigation Component Grid */
+    /* Fixed Floating Navigation Bar at absolute top index */
     .bottom-nav-container {
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(8, 12, 26, 0.9) !important;
-        backdrop-filter: blur(24px);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 14px 40px;
-        z-index: 99999;
-        text-align: center;
-        box-shadow: 0 -12px 36px rgba(0,0,0,0.65);
-    }
-    .bottom-nav-copyright {
-        font-size: 11px;
-        color: #64748b;
-        margin-top: 10px;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-# Maintain State Navigation Management 
-if "current_page" not in st.session
+        background: rgba(8, 12, 26, 0.92) !important;
+        backdrop-filter: blur(24
