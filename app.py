@@ -70,7 +70,7 @@ img8 = "https://images.unsplash.com/photo-1459749411175-04bf5292ceea"
 img9 = "https://images.unsplash.com/photo-1465847899084-d164df4dedc6"
 img10 = "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad"
 
-# --- Premium UI CSS Engine matching Gemini_Generated_Image_p0n3l5p0n3l5p0n3.png ---
+# --- Premium High Contrast UI CSS Engine ---
 css_chunks = [
     "<style>",
     "/* App Container and Golden Cinematic Border Wrapper */",
@@ -87,7 +87,7 @@ css_chunks = [
     "  background-size: cover;",
     "  background-position: center;",
     "  background-repeat: no-repeat;",
-    "  border: 3px solid rgba(212, 175, 55, 0.6); /* Premium Gold Frame */",
+    "  border: 3px solid rgba(247, 201, 72, 0.8); /* Solid Gold Frame */",
     "  border-radius: 16px;",
     "  animation: bgInfiniteSlider 60s infinite ease-in-out;",
     "}",
@@ -106,38 +106,46 @@ css_chunks = [
     ".stApp::after {",
     "  content: ''; position: fixed;",
     "  top: 10px; left: 10px; right: 10px; bottom: 10px; z-index: -1;",
-    "  background: linear-gradient(135deg, rgba(5, 12, 32, 0.92), rgba(10, 20, 42, 0.96));",
+    "  background: linear-gradient(135deg, rgba(3, 7, 22, 0.96), rgba(6, 13, 30, 0.98));",
     "  border-radius: 14px;",
     "}",
     ".block-container {",
     "  padding: 2rem 3rem !important;",
     "}",
-    "/* Voice Settings Premium Title Header */",
+    "/* Voice Settings Premium Title Header - Sharp Gold */",
     ".voice-settings-header {",
     "  font-family: 'Georgia', serif;",
-    "  color: #dfba6b !important; /* Elegant Gold Heading */",
-    "  font-weight: 600;",
-    "  font-size: 2.3rem;",
+    "  color: #f7c948 !important;",
+    "  font-weight: 800;",
+    "  font-size: 2.5rem;",
     "  margin-bottom: 1.5rem;",
-    "  text-shadow: 0px 2px 8px rgba(0,0,0,0.7);",
     "}",
-    "/* Glassmorphism Containers for Inputs */",
+    "/* High Visibility Font Overrides across all Streamlit Elements */",
+    "div[data-testid='stWidgetLabel'] p, label, span, p, div {{",
+    "  color: #ffffff !important;",
+    "  font-weight: 700 !important;",
+    "  font-size: 15px !important;",
+    "  text-shadow: none !important;",
+    "}}",
+    "/* Glassmorphism Containers for Inputs with Deep Dark Backgrounds for Text Legibility */",
     "div[data-testid='stSelectbox'], div[data-testid='stSlider'] {",
-    "  background: rgba(20, 28, 50, 0.6) !important;",
-    "  border: 1px solid rgba(255, 255, 255, 0.15) !important;",
+    "  background: rgba(10, 16, 32, 0.95) !important;",
+    "  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;",
     "  border-radius: 10px !important;",
     "  padding: 12px 20px !important;",
-    "  margin-bottom: 12px !important;",
-    "  box-shadow: inset 0 1px 4px rgba(255,255,255,0.05), 0 4px 15px rgba(0,0,0,0.3);",
+    "  margin-bottom: 15px !important;",
     "}",
-    "label, p, span, div {",
-    "  color: #e2e8f0 !important;",
+    "/* Target active selection item text specifically */",
+    "div[data-baseweb='select'] div {",
+    "  color: #ffffff !important;",
+    "  font-weight: 700 !important;",
     "}",
     "/* Custom Style for Text Area */",
     ".stTextArea textarea {",
-    "  background-color: rgba(10, 16, 32, 0.85) !important;",
-    "  color: #f8fafc !important;",
-    "  border: 1px solid rgba(212, 175, 55, 0.3) !important;",
+    "  background-color: rgba(5, 8, 18, 0.95) !important;",
+    "  color: #ffffff !important;",
+    "  font-weight: 600 !important;",
+    "  border: 1.5px solid rgba(247, 201, 72, 0.5) !important;",
     "  border-radius: 12px !important;",
     "}",
     "/* Metallic Center Compilation Button */",
@@ -147,29 +155,29 @@ css_chunks = [
     "  max-width: 500px;",
     "}",
     ".compile-container button {",
-    "  background: linear-gradient(180deg, #eeeeee 0%, #cccccc 40%, #999999 100%) !important;",
+    "  background: linear-gradient(180deg, #ffffff 0%, #dddddd 40%, #aaaaaa 100%) !important;",
     "  border: 2px solid #38bdf8 !important;",
     "  border-radius: 12px !important;",
-    "  color: #111827 !important;",
-    "  font-weight: 800 !important;",
+    "  color: #000000 !important; /* Deep black for button text readability */",
+    "  font-weight: 900 !important;",
     "  font-size: 16px !important;",
     "  letter-spacing: 1px !important;",
     "  padding: 18px 30px !important;",
     "  height: auto !important;",
     "  width: 100% !important;",
-    "  box-shadow: 0 0 20px rgba(56, 189, 248, 0.6), inset 0 1px 2px #ffffff !important;",
+    "  box-shadow: 0 0 25px rgba(56, 189, 248, 0.7) !important;",
     "  text-transform: uppercase;",
     "  transition: all 0.3s ease !important;",
     "}",
     ".compile-container button:hover {",
     "  transform: scale(1.02) !important;",
-    "  box-shadow: 0 0 30px rgba(56, 189, 248, 0.9) !important;",
+    "  box-shadow: 0 0 35px rgba(56, 189, 248, 1) !important;",
     "}",
     "/* Bottom Fixed Glass Bar */",
     ".bottom-nav-container {",
     "  position: fixed; bottom: 20px; left: 30px; right: 30px;",
-    "  background: rgba(4, 8, 20, 0.95) !important;",
-    "  border-top: 1px solid rgba(212, 175, 55, 0.3);",
+    "  background: rgba(3, 5, 12, 0.98) !important;",
+    "  border-top: 2px solid rgba(247, 201, 72, 0.5);",
     "  padding: 20px; z-index: 999999; text-align: center;",
     "  border-radius: 14px;",
     "}",
@@ -179,15 +187,14 @@ css_chunks = [
     "  height: 56px !important;",
     "  width: 100% !important;",
     "  font-size: 15px !important;",
-    "  font-weight: 700 !important;",
-    "  color: #ffffff !important; /* High Contrast White Text */",
-    "  border: 1px solid rgba(255,255,255,0.2) !important;",
-    "  box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;",
+    "  font-weight: 800 !important;",
+    "  color: #ffffff !important; ",
+    "  border: 1.5px solid rgba(255,255,255,0.4) !important;",
+    "  box-shadow: 0 4px 12px rgba(0,0,0,0.6) !important;",
     "  transition: all 0.2s ease !important;",
     "}",
     ".bottom-nav-container div[data-testid='stHorizontalBlock'] button:hover {",
     "  transform: translateY(-3px) !important;",
-    "  box-shadow: 0 6px 18px rgba(255,255,255,0.2) !important;",
     "}",
     "/* Specific Capsules Gradient Custom Color Nodes mapped to Screenshot */",
     ".bottom-nav-container div[data-testid='stHorizontalBlock'] div:nth-child(1) button { background: linear-gradient(90deg, #1e3a8a, #3b82f6) !important; } /* Studio - Blue */",
@@ -221,9 +228,8 @@ if page == "Studio":
         speed = st.slider("Speed", -50, 50, 0, 1)
         pitch = st.slider("Pitch", -20, 20, 0, 1)
         
-        # Wrapped compile process inside a centered customized wrapper node
         st.markdown('<div class="compile-container">', unsafe_allow_html=True)
-        generate_clicked = st.button("🎙️ Compile & Synthesize Audio")
+        generate_clicked = st.button("🎙 * COMPILE & SYNTHESIZE AUDIO *")
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_right:
@@ -267,7 +273,7 @@ else:
 st.markdown('<div class="bottom-nav-container">', unsafe_allow_html=True)
 nav_cols = st.columns(5)
 p_list = ["Studio", "Privacy", "Terms", "Contact", "Disclaimer"]
-icons = ["🎙️ ", "🛡️ ", "📄 ", "📞 ", "⚠️ "]
+icons = ["🎙 ", "🛡 ", "📄 ", "📞 ", "⚠ "]
 
 for i, p_name in enumerate(p_list):
     with nav_cols[i]:
