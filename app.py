@@ -1,33 +1,21 @@
-import asyncio
-import edge_tts
 import streamlit as st
-import os
-import re
-import zipfile
-import io
+import asyncio
 
-# --- Expanded Language/Voice List ---
-VOICES = {
-    "Asad (Urdu) 🇵🇰": "ur-PK-AsadNeural",
-    "Uzma (Urdu) 🇵🇰": "ur-PK-UzmaNeural",
-    "Christopher (Eng) 🇺🇸": "en-US-ChristopherNeural",
-    "Ava (English) 🇺🇸": "en-US-AvaNeural",
-    "Hamed (Arabic) 🇸🇦": "ar-SA-HamedNeural",
-    "Sana (Arabic) 🇸🇦": "ar-SA-SanaNeural",
-    "Madhur (Hindi) 🇮🇳": "hi-IN-MadhurNeural",
-    "Swara (Hindi) 🇮🇳": "hi-IN-SwaraNeural",
-    "Elena (Spanish) 🇪🇸": "es-ES-ElenaNeural",
-    "Alvaro (Spanish) 🇪🇸": "es-ES-AlvaroNeural",
-    "Katya (Russian) 🇷🇺": "ru-RU-KatyaNeural",
-    "Dmitry (Russian) 🇷🇺": "ru-RU-DmitryNeural",
-    "Nanami (Japanese) 🇯🇵": "ja-JP-NanamiNeural",
-    "Keita (Japanese) 🇯🇵": "ja-JP-KeitaNeural",
-    "Xiaoxiao (Chinese) 🇨🇳": "zh-CN-XiaoxiaoNeural",
-    "Yunxi (Chinese) 🇨🇳": "zh-CN-YunxiNeural"
+# --- Configuration & Language Data with Flag & Color Mapping ---
+# Imran Bhai, har language ka apna flag aur specific vibrant color map kar diya hai.
+VOICE_DATA = {
+    "Urdu 🇵🇰": {"color": "#fbbf24"},
+    "English 🇺🇸": {"color": "#38bdf8"},
+    "Arabic 🇸🇦": {"color": "#34d399"},
+    "Hindi 🇮🇳": {"color": "#f472b6"},
+    "Spanish 🇪🇸": {"color": "#fb923c"},
+    "Russian 🇷🇺": {"color": "#a78bfa"},
+    "Japanese 🇯🇵": {"color": "#f87171"},
+    "Chinese 🇨🇳": {"color": "#60a5fa"}
 }
 
-# --- Background Image Pool ---
-images = [
+# --- Dynamic Cinematic Backgrounds ---
+IMAGES = [
     "https://images.unsplash.com/photo-1516280440614-37939bbacd6a",
     "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04",
     "https://images.unsplash.com/photo-1478737270239-2f02b77fc618",
@@ -42,23 +30,26 @@ images = [
 
 st.set_page_config(page_title="VocalForge Studio", layout="wide")
 
-# --- CSS Engine ---
+# --- Refined CSS Engine ---
 css = f"""
 <style>
     .stApp {{
-        background: linear-gradient(rgba(3, 7, 22, 0.9), rgba(3, 7, 22, 0.9)), url('{images[0]}');
+        background: linear-gradient(rgba(3, 7, 22, 0.9), rgba(3, 7, 22, 0.9)), url('{IMAGES[0]}');
         background-size: cover;
         animation: bgChange 600s infinite;
     }}
     @keyframes bgChange {{
-        {" ".join([f"{i*10}% {{ background-image: linear-gradient(rgba(3, 7, 22, 0.9), rgba(3, 7, 22, 0.9)), url('{img}'); }}" for i, img in enumerate(images)])}
+        {" ".join([f"{i*10}% {{ background-image: linear-gradient(rgba(3, 7, 22, 0.9), rgba(3, 7, 22, 0.9)), url('{img}'); }}" for i, img in enumerate(IMAGES)])}
     }}
+    /* Metallic Capsule Sliders */
     div[data-testid="stSlider"] {{
         background: linear-gradient(145deg, #111827, #1f2937) !important;
         padding: 20px 30px !important;
         border-radius: 50px !important;
         border: 1px solid rgba(247, 201, 72, 0.3) !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
     }}
+    /* Metallic Compile Button */
     div.stButton > button {{
         width: 100%;
         background: linear-gradient(180deg, #d4af37, #aa882c) !important;
@@ -68,25 +59,35 @@ css = f"""
         padding: 16px !important;
         border: none !important;
     }}
+    h1, h2, label {{ color: #ffffff !important; }}
 </style>
 """
 st.markdown(css, unsafe_allow_html=True)
 
+# --- UI Implementation ---
 st.title("🎙️ VocalForge Studio")
+
 col1, col2 = st.columns([1, 1])
 
 with col1:
     st.subheader("Voice Settings")
-    sel_voice = st.selectbox("Select Voice", list(VOICES.keys()))
-    speed = st.slider("Speed", -50, 50, -29)
-    pitch = st.slider("Pitch", -20, 20, -9)
+    sel_lang = st.selectbox("Select Language & Voice", list(VOICE_DATA.keys()))
+    
+    # Dynamic Color Header based on Language
+    color = VOICE_DATA[sel_lang]["color"]
+    st.markdown(f"<h4 style='color: {color};'>Selected: {sel_lang}</h4>", unsafe_allow_html=True)
+    
+    speed = st.slider("Speed", -50, 50, 0)
+    pitch = st.slider("Pitch", -20, 20, 0)
+    
     if st.button("🎙 * COMPILE & SYNTHESIZE AUDIO *"):
-        st.success("Synthesis initiated...")
+        st.success(f"Synthesizing in {sel_lang}...")
 
 with col2:
     st.subheader("Script Board")
     input_text = st.text_area("Workflow", height=200, placeholder="Enter your sequence narrative...")
 
+# --- Footer ---
 st.markdown("---")
 cols = st.columns(5)
 btns = ["Studio", "Privacy", "Terms", "Contact", "Disclaimer"]
