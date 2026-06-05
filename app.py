@@ -70,37 +70,43 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
 # --- Premium UI Page Configuration ---
 st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
-# --- Custom Premium Dark CSS ---
+# --- Custom Premium Dark CSS with Dynamic Wallpaper Background ---
 st.markdown("""
     <style>
     .stApp {
-        background: radial-gradient(circle at top right, #0f172a, #020617);
+        background-image: linear-gradient(rgba(2, 6, 23, 0.75), rgba(15, 23, 42, 0.85)), 
+                          url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
         color: #f8fafc;
     }
     div[data-testid="stForm"] {
-        background: rgba(15, 23, 42, 0.6) !important;
-        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        background: rgba(15, 23, 42, 0.45) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-radius: 16px !important;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(16px);
     }
     textarea {
-        background-color: #0b1329 !important;
+        background-color: rgba(11, 19, 41, 0.7) !important;
         color: #f8fafc !important;
-        border: 1px solid #1e293b !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
         border-radius: 12px !important;
         font-size: 16px !important;
+        backdrop-filter: blur(8px);
     }
     textarea:focus {
         border-color: #38bdf8 !important;
-        box-shadow: 0 0 10px rgba(56, 189, 248, 0.2) !important;
+        box-shadow: 0 0 12px rgba(56, 189, 248, 0.3) !important;
     }
     .audio-card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.65));
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         padding: 16px;
         margin-bottom: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
     }
     .audio-card-title {
         color: #38bdf8;
@@ -112,7 +118,7 @@ st.markdown("""
         gap: 8px;
     }
     .audio-card-meta {
-        color: #64748b;
+        color: #94a3b8;
         font-size: 12px;
         margin-bottom: 8px;
     }
@@ -123,18 +129,20 @@ st.markdown("""
         font-weight: 800;
         font-size: 2.5rem;
         margin-bottom: 0.2rem;
+        text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     }
     .studio-subtitle {
-        color: #94a3b8;
+        color: #cbd5e1;
         font-size: 1rem;
         margin-bottom: 2rem;
     }
     .legal-box {
-        background: rgba(30, 41, 59, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: rgba(15, 23, 42, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         padding: 24px;
         margin-top: 10px;
+        backdrop-filter: blur(12px);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -160,7 +168,7 @@ if page == "🎙️ Studio":
 
     with col_left:
         st.markdown("### 📝 Script Input / یہاں اسکرپٹ لکھیں")
-        input_text = st.text_area("Input Text", placeholder="Paste your script here in any language... \nیہاں اپنا اسکرپٹ پیسٹ کریں۔", height=240, label_visibility="collapsed")
+        input_text = st.text_area("Input Text", placeholder="Paste your script here in any language... \nیہاں apna script paste karein...", height=240, label_visibility="collapsed")
         
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگز")
