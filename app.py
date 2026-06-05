@@ -22,6 +22,7 @@ st.set_page_config(page_title="VocalNexus AI", layout="wide")
 # --- Premium Design Engine (Inter & Montserrat Fonts + Dark Theme) ---
 css = """
 <style>
+
 /* Fix toggle arrow icon text glitch */
 button[data-testid="collapsedControl"] {
     display: none !important;
