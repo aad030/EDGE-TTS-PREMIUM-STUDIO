@@ -22,18 +22,6 @@ st.set_page_config(page_title="VocalNexus AI", layout="wide")
 # --- Premium Design Engine (Inter & Montserrat Fonts + Dark Theme) ---
 css = """
 <style>
-
-/* Fix toggle arrow icon text glitch */
-button[data-testid="collapsedControl"] {
-    display: none !important;
-}
-
-/* Alternative fix if it is inside the main container */
-.stApp svg, [data-testid="collapsedControl"] p {
-    font-size: 0px !important;
-    color: transparent !important;
-}
-
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@300;400;500;600&display=swap');
     
     /* Global Font Overrides */
@@ -48,6 +36,20 @@ button[data-testid="collapsedControl"] {
     
     /* Dark Cinematic Background */
     .stApp { background-color: #030712 !important; }
+    
+    /* STRICT GLITCH FIX: Completely target and vanish the 'double_arrow_right' raw string element */
+    button[data-testid="collapsedControl"], 
+    button[data-testid="collapsedControl"] *, 
+    [data-testid="collapsedControl"] span,
+    div[class*="collapsedControl"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        font-size: 0px !important;
+        color: transparent !important;
+        width: 0px !important;
+        height: 0px !important;
+    }
     
     /* Sidebar styling */
     [data-testid="stSidebar"] { 
