@@ -70,127 +70,201 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
 # --- Premium UI Page Configuration ---
 st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
-# --- CSS Injection: Deep Customization & Isolated Slider Architecture ---
-st.markdown("""
-    <style>
-    /* Absolute Isolation for App Layout Container */
-    .stApp {
-        background: transparent !important;
-        position: relative;
-        overflow-x: hidden;
-        padding-bottom: 180px !important;
-    }
-    
-    /* Fixed Dynamic Slider Background Stacked at Bottom Layer (-2) */
-    .stApp::before {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        z-index: -2;
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        animation: backgroundSlider 24s infinite ease-in-out;
-    }
+# --- CSS Injection Phase (Using single-line block concatenation to ensure zero parsing breaks) ---
+css_style = """
+<style>
+.stApp {
+    background: transparent !important;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 180px !important;
+}
+.stApp::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -2;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    animation: backgroundSlider 24s infinite ease-in-out;
+}
+.stApp::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    background: linear-gradient(rgba(3, 7, 20, 0.85), rgba(11, 18, 40, 0.95));
+    pointer-events: none;
+}
+@keyframes backgroundSlider {
+    0%, 100% { background-image: url('https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=2070&auto=format&fit=crop'); }
+    33% { background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop'); }
+    66% { background-image: url('https://images.unsplash.com/photo-1516280440614-37939bbacd6a?q=80&w=2070&auto=format&fit=crop'); }
+}
+div[data-testid="stVerticalBlock"] > div {
+    position: relative;
+    z-index: 10;
+}
+h1, h2, h3, p, label, span {
+    color: #f8fafc !important;
+}
+.stTextArea textarea {
+    background-color: rgba(11, 19, 41, 0.8) !important;
+    color: #f8fafc !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    backdrop-filter: blur(10px);
+}
+.stTextArea textarea:focus {
+    border-color: #38bdf8 !important;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.4) !important;
+}
+.audio-card {
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+}
+.audio-card-title {
+    color: #38bdf8 !important;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+.audio-card-meta {
+    color: #94a3b8 !important;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+.studio-title {
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    font-size: 2.6rem;
+    margin-bottom: 0.1rem;
+    letter-spacing: 1px;
+}
+.studio-subtitle {
+    color: #cbd5e1;
+    font-size: 1rem;
+    margin-bottom: 2.2rem;
+}
+.legal-box {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 10px;
+    backdrop-filter: blur(12px);
+}
+.bottom-nav-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(8, 12, 26, 0.95) !important;
+    backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 14px 40px;
+    z-index: 999999;
+    text-align: center;
+    box-shadow: 0 -12px 36px rgba(0,0,0,0.7);
+}
+.bottom-nav-copyright {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 10px;
+}
+</style>
+"""
+st.markdown(css_style, unsafe_allow_html=True)
 
-    /* Cinematic High-Contrast Dark Matrix Overlay Layer (-1) */
-    .stApp::after {
-        content: "";
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        z-index: -1;
-        background: linear-gradient(rgba(3, 7, 20, 0.82), rgba(11, 18, 40, 0.92));
-        pointer-events: none;
-    }
+# Navigation State Manager
+if "current_page" not in st.session_state:
+    st.session_state.current_page = "🎙️ Studio"
 
-    @keyframes backgroundSlider {
-        0%, 100% {
-            background-image: url("https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=2070&auto=format&fit=crop");
-        }
-        33% {
-            background-image: url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop");
-        }
-        66% {
-            background-image: url("https://images.unsplash.com/photo-1516280440614-37939bbacd6a?q=80&w=2070&auto=format&fit=crop");
-        }
-    }
+page = st.session_state.current_page
 
-    /* Ensuring Streamlit Elements remain above the background */
-    div[data-testid="stVerticalBlock"] > div {
-        position: relative;
-        z-index: 10;
-    }
+# ==============================================================================
+# UI ROUTER PAGES RENDER
+# ==============================================================================
+if page == "🎙️ Studio":
+    st.markdown('<div class="studio-title">VOCALFORGE AI STUDIO</div>', unsafe_allow_html=True)
+    st.markdown('<div class="studio-subtitle">Global Multi-Voice Sentence Splitter & Generator | ملٹی لنگول اسٹوڈیو</div>', unsafe_allow_html=True)
 
-    /* Global Text Visibility Rules */
-    h1, h2, h3, p, label, span {
-        color: #f8fafc !important;
-    }
+    col_left, col_right = st.columns([1.1, 0.9], gap="large")
 
-    /* Glassmorphism Control Panel Styling */
-    .stTextArea textarea {
-        background-color: rgba(11, 19, 41, 0.8) !important;
-        color: #f8fafc !important;
-        border: 1px solid rgba(255, 255, 255, 0.15) !important;
-        border-radius: 12px !important;
-        font-size: 16px !important;
-        backdrop-filter: blur(10px);
-    }
-    .stTextArea textarea:focus {
-        border-color: #38bdf8 !important;
-        box-shadow: 0 0 12px rgba(56, 189, 248, 0.4) !important;
-    }
-    
-    /* Compiled Track Cards layout */
-    .audio-card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 14px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(12px);
-    }
-    .audio-card-title {
-        color: #38bdf8 !important;
-        font-weight: 600;
-        font-size: 15px;
-        margin-bottom: 4px;
-    }
-    .audio-card-meta {
-        color: #94a3b8 !important;
-        font-size: 12px;
-        margin-bottom: 8px;
-    }
-    
-    /* Typography Customizations */
-    .studio-title {
-        background: linear-gradient(to right, #38bdf8, #818cf8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800;
-        font-size: 2.6rem;
-        margin-bottom: 0.1rem;
-        letter-spacing: 1px;
-    }
-    .studio-subtitle {
-        color: #cbd5e1;
-        font-size: 1rem;
-        margin-bottom: 2.2rem;
-    }
-    .legal-box {
-        background: rgba(15, 23, 42, 0.65);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 24px;
-        margin-top: 10px;
-        backdrop-filter: blur(12px);
-    }
-    
-    /* Fixed Floating Navigation Bar at absolute top index */
-    .bottom-nav-container {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(8, 12, 26, 0.92) !important;
-        backdrop-filter: blur(24
+    with col_left:
+        st.markdown("### 📝 Script Input / یہاں اسکرپٹ لکھیں")
+        input_text = st.text_area("Input Text", placeholder="Paste your script here in any language... \nیہاں apna script paste karein...", height=240, label_visibility="collapsed")
+        
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگz")
+        
+        selected_voice_label = st.selectbox("Choose Actor Voice / آواز کا انتخاب کریں", options=list(VOICES.keys()), index=0)
+        selected_voice_id = VOICES[selected_voice_label]
+        
+        c1, c2 = st.columns(2)
+        with c1:
+            speed_slider = st.slider("Speed Adjustment (%) / آواز کی رفتار", min_value=-50, max_value=50, value=0, step=1)
+        with c2:
+            pitch_slider = st.slider("Pitch Adjustment (Hz) / آواز کا پچ", min_value=-20, max_value=20, value=0, step=1)
+        
+        generate_clicked = st.button("🎙️ Compile Audio Assets / آواز بنائیں", type="primary", use_container_width=True)
+
+    with col_right:
+        st.markdown("### 📁 Compiled Voice Tracks / آڈیوز")
+        
+        if generate_clicked:
+            if not input_text.strip():
+                st.warning("Please enter some text first! / پہلے ٹیکسٹ لکھیں!")
+            else:
+                with st.spinner("Compiling high-retention tracks... Please wait."):
+                    files = asyncio.run(generate_voice_tracks(input_text, selected_voice_id, speed_slider, pitch_slider))
+                    
+                    if files:
+                        st.toast("Tracks compiled successfully!", icon="🔥")
+                        
+                        zip_buffer = io.BytesIO()
+                        with zipfile.ZipFile(zip_buffer, "w") as zip_file:
+                            for file_path in files:
+                                zip_file.write(file_path, os.path.basename(file_path))
+                        zip_buffer.seek(0)
+                        
+                        st.download_button(
+                            label="🚀 Export All Tracks to Timeline (ZIP)",
+                            data=zip_buffer,
+                            file_name="vocalforge_voice_pack.zip",
+                            mime="application/zip",
+                            use_container_width=True
+                        )
+                        
+                        st.markdown("---")
+                        
+                        for index, file_path in enumerate(files, start=1):
+                            card_html = f"""
+                            <div class="audio-card">
+                                <div class="audio-card-title">🎵 Track {index:03d}</div>
+                                <div class="audio-card-meta">Voice Model: {selected_voice_label.split(' ')[0]} | Format: MP3 Stereo</div>
+                            </div>
+                            """
+                            st.markdown(card_html, unsafe_allow_html=True)
+                            st.audio(file_path)
+                    else:
+                        st.error("No valid sentence markers found / کوئی جملہ نہیں ملا۔")
+        else:
+            st.info("System standby. Select voice profile, enter script and click compile.")
+
+    st.markdown("---")
+    st.markdown("### 📘 Detailed User Guide & Feature Overview")
+    st.write("Welcome to VocalForge AI Studio. This engine tokenizes texts via termination delimiters and passes them into highly descriptive audio layers sequentially.")
+
+elif page == "📄 Privacy Policy":
+    st.markdown('<div class="studio-title">Privacy Policy</div>', unsafe_allow_html=True)
+    st.markdown('<div class
