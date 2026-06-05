@@ -58,7 +58,13 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- CSS Array (Animations Removed - Clean Static BG) ---
+# --- CSS Chunks (Safe Split Multi-Image Slider Animation) ---
+img1 = "https://images.unsplash.com/photo-1516280440614-37939bbacd6a"
+img2 = "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04"
+img3 = "https://images.unsplash.com/photo-1478737270239-2f02b77fc618"
+img4 = "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0"
+img5 = "https://images.unsplash.com/photo-1484755560693-a4074577af3a"
+
 css_chunks = [
     "<style>",
     ".stApp {",
@@ -72,15 +78,21 @@ css_chunks = [
     "  background-size: cover;",
     "  background-position: center;",
     "  background-repeat: no-repeat;",
-    "  background-image: url(",
-    "    'https://images.unsplash.com/photo-1516280440614-37939bbacd6a'",
-    "  );",
+    "  background-attachment: fixed;",
+    "  animation: bgSlider 30s infinite ease-in-out;",
+    "}",
+    "@keyframes bgSlider {",
+    f"  0%, 100% {{ background-image: url('{img1}'); }}",
+    f"  20% {{ background-image: url('{img2}'); }}",
+    f"  40% {{ background-image: url('{img3}'); }}",
+    f"  60% {{ background-image: url('{img4}'); }}",
+    f"  80% {{ background-image: url('{img5}'); }}",
     "}",
     ".stApp::after {",
     "  content: ''; position: fixed;",
     "  top: 0; left: 0; right: 0; bottom: 0; z-index: -1;",
     "  background: linear-gradient(",
-    "    rgba(3, 7, 20, 0.9), rgba(11, 18, 40, 0.98)",
+    "    rgba(3, 7, 20, 0.88), rgba(11, 18, 40, 0.95)",
     "  );",
     "}",
     ".block-container {",
