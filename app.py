@@ -217,7 +217,7 @@ if page == "🎙️ Studio":
 elif page == "📄 Privacy Policy":
     st.markdown('<div class="studio-title">Privacy Policy</div>', unsafe_allow_html=True)
     st.markdown('<div class="legal-box">', unsafe_allow_html=True)
-    st.write(f"**Last Updated: June 2026**")
+    st.write("**Last Updated: June 2026**")
     st.write("""
     At Edge TTS Premium Studio, accessible from this web application, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by our platform and how we use it.
 
@@ -231,4 +231,89 @@ elif page == "📄 Privacy Policy":
     Google is one of the third-party vendors on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our platform and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy.
 
     ### 4. Third-Party Privacy Policies
-    Our platform's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you toNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
+    Our platform's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.
+    """)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ==============================================================================
+# PAGE 3: TERMS & CONDITIONS
+# ==============================================================================
+elif page == "⚖️ Terms & Conditions":
+    st.markdown('<div class="studio-title">Terms & Conditions</div>', unsafe_allow_html=True)
+    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
+    st.write("**Last Updated: June 2026**")
+    st.write("""
+    Welcome to Edge TTS Premium Studio! By accessing this website, we assume you accept these terms and conditions. Do not continue to use Edge TTS Premium Studio if you do not agree to take all of the terms and conditions stated on this page.
+
+    ### 1. License & Intellectual Property
+    Unless otherwise stated, Edge TTS Premium Studio and/or its licensors own the intellectual property rights for all code and material on this application. All intellectual property rights are reserved. You may access this from Edge TTS Premium Studio for your own personal use subjected to restrictions set in these terms and conditions.
+
+    ### 2. User Restrictions
+    You are specifically restricted from all of the following:
+    * Publishing our application code anywhere without appropriate attribution.
+    * Selling, sublicensing, and/or otherwise commercializing any website material.
+    * Using this application in any way that is or may be damaging to this website.
+    * Using this application contrary to applicable laws and regulations.
+
+    ### 3. Voice Assets Usage
+    The voice generation functionality utilizes experimental downstream API libraries. Users are solely responsible for ensuring that the voice assets generated conform to the content policy parameters of their chosen publication platforms (e.g., YouTube, TikTok).
+    """)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ==============================================================================
+# PAGE 4: ABOUT US
+# ==============================================================================
+elif page == "ℹ️ About Us":
+    st.markdown('<div class="studio-title">About Us</div>', unsafe_allow_html=True)
+    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
+    st.write("""
+    ### Welcome to Edge TTS Premium Studio
+
+    Edge TTS Premium Studio is a cutting-edge web utility engineered specifically for next-generation content creators, video editors, and cross-platform automation specialists. Our primary mission is to simplify the content synthesis workflow by bridging the gap between sophisticated neural audio models and modern non-linear editing (NLE) suites.
+
+    #### Why Choose Us?
+    Traditional Text-to-Speech solutions generate massive, single-track audio blocks that require hours of meticulous splicing on editing timelines. Edge TTS Premium Studio dynamically parses textual scripts into logical linguistic elements, synthesizing independent, high-fidelity sound tracks in structural sequence.
+
+    #### Core Values
+    * **Efficiency:** Minimizing time spent on asset slicing.
+    * **Accessibility:** Providing clean open-source frameworks for developers globally.
+    * **Innovation:** Utilizing modern asynchronous workflows for swift production pipelines.
+    """)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ==============================================================================
+# PAGE 5: CONTACT US
+# ==============================================================================
+elif page == "📧 Contact Us":
+    st.markdown('<div class="studio-title">Contact Us</div>', unsafe_allow_html=True)
+    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
+    st.write("""
+    If you have any questions, feedback, feature requests, or technical inquiries regarding our studio application, feel free to reach out to us. We aim to respond within 24 to 48 hours.
+
+    ### 📩 Contact Channels
+    * **Email Support:** `support@tts-premium-studio.example.com`
+    * **Developer Repository:** Feel free to open an issue on our official GitHub repository for bugs or code improvements.
+    * **Social Presence:** Connect with our official development profile on Twitter (X) for tech updates.
+
+    *Note: Please avoid sharing any sensitive credential configurations or personal access tokens when initiating support requests.*
+    """)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ==============================================================================
+# PAGE 6: DISCLAIMER
+# ==============================================================================
+elif page == "⚠️ Disclaimer":
+    st.markdown('<div class="studio-title">Disclaimer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="legal-box">', unsafe_allow_html=True)
+    st.write("**Last Updated: June 2026**")
+    st.write("""
+    ### 1. General Information Only
+    All the information and tools on this website are published in good faith and for general information and productivity purposes only. Edge TTS Premium Studio does not make any warranties about the completeness, reliability, and accuracy of this utility. Any action you take upon the information you find on this website is strictly at your own risk.
+
+    ### 2. Third-Party Affiliation
+    This application is an independent development project. It is **not** officially affiliated with, endorsed by, sponsored by, or in any way connected to Microsoft Corporation or any of its subsidiaries. The voice assets and underlying synthesizer models are powered by the available `edge-tts` python execution layer.
+
+    ### 3. Financial and Liability Limitation
+    In no event will Edge TTS Premium Studio be liable for any loss or damage including without limitation, indirect or consequential loss or damage, arising from loss of data or production timeline delays in connection with the use of this free tool.
+    """)
+    st.markdown('</div>', unsafe_allow_html=True)
