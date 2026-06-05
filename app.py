@@ -70,28 +70,64 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
 # --- Premium UI Page Configuration ---
 st.set_page_config(page_title="VocalForge AI Studio", page_icon="🎙️", layout="wide")
 
-# --- Custom Premium Dark CSS with Dynamic Wallpaper Background & Fixed Bottom Nav ---
+# --- CSS Injection: Dynamic Cross-Fading Voice Wallpaper Slider ---
 st.markdown("""
     <style>
+    /* Background Slider Animation Setup */
     .stApp {
-        background-image: linear-gradient(rgba(2, 6, 23, 0.75), rgba(15, 23, 42, 0.85)), 
-                          url("https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop");
+        background: none !important;
+        position: relative;
+        overflow-x: hidden;
+        padding-bottom: 140px !important; /* Navigation margin padding */
+    }
+    
+    /* Pseudoelement for moving slide layers behind content */
+    .stApp::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: -2;
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        color: #f8fafc;
-        padding-bottom: 120px !important; /* Space for bottom nav */
+        animation: backgroundSlider 24s infinite ease-in-out;
     }
+
+    /* Overlay protection dark layer so text stays perfectly readable */
+    .stApp::after {
+        content: "";
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: -1;
+        background: linear-gradient(rgba(2, 6, 23, 0.8), rgba(15, 23, 42, 0.88));
+        pointer-events: none;
+    }
+
+    /* Keyframe control for smooth voice studio image transitions */
+    @keyframes backgroundSlider {
+        0%, 100% {
+            background-image: url("https://images.unsplash.com/photo-1478737270239-2f02b77fc618?q=80&w=2070&auto=format&fit=crop"); /* Retro Studio Mic */
+        }
+        33% {
+            background-image: url("https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070&auto=format&fit=crop"); /* Modern Audio Equalizer Visualizer */
+        }
+        66% {
+            background-image: url("https://images.unsplash.com/photo-1516280440614-37939bbacd6a?q=80&w=2070&auto=format&fit=crop"); /* Sound wave voice frequency */
+        }
+    }
+
+    color: #f8fafc;
+
     div[data-testid="stForm"] {
-        background: rgba(15, 23, 42, 0.45) !important;
+        background: rgba(15, 23, 42, 0.5) !important;
         border: 1px solid rgba(255, 255, 255, 0.08) !important;
         border-radius: 16px !important;
         backdrop-filter: blur(16px);
     }
     textarea {
-        background-color: rgba(11, 19, 41, 0.7) !important;
+        background-color: rgba(11, 19, 41, 0.75) !important;
         color: #f8fafc !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
         border-radius: 12px !important;
         font-size: 16px !important;
         backdrop-filter: blur(8px);
@@ -101,12 +137,12 @@ st.markdown("""
         box-shadow: 0 0 12px rgba(56, 189, 248, 0.3) !important;
     }
     .audio-card {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.55), rgba(15, 23, 42, 0.65));
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.7));
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         padding: 16px;
         margin-bottom: 12px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
         backdrop-filter: blur(10px);
     }
     .audio-card-title {
@@ -130,7 +166,7 @@ st.markdown("""
         font-weight: 800;
         font-size: 2.5rem;
         margin-bottom: 0.2rem;
-        text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
     }
     .studio-subtitle {
         color: #cbd5e1;
@@ -138,7 +174,7 @@ st.markdown("""
         margin-bottom: 2rem;
     }
     .legal-box {
-        background: rgba(15, 23, 42, 0.5);
+        background: rgba(15, 23, 42, 0.55);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 12px;
         padding: 24px;
@@ -146,23 +182,24 @@ st.markdown("""
         backdrop-filter: blur(12px);
     }
     
-    /* Bottom Navigation Bar Container Styling */
+    /* Floating Navigation Controls */
     .bottom-nav-container {
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
-        background: rgba(15, 23, 42, 0.8) !important;
-        backdrop-filter: blur(20px);
+        background: rgba(15, 23, 42, 0.85) !important;
+        backdrop-filter: blur(24px);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 10px 40px;
+        padding: 12px 40px;
         z-index: 99999;
         text-align: center;
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
     }
     .bottom-nav-copyright {
         font-size: 11px;
         color: #64748b;
-        margin-top: 5px;
+        margin-top: 8px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -171,7 +208,6 @@ st.markdown("""
 if "current_page" not in st.session_state:
     st.session_state.current_page = "🎙️ Studio"
 
-# Get current page to render content
 page = st.session_state.current_page
 
 # ==============================================================================
@@ -185,10 +221,10 @@ if page == "🎙️ Studio":
 
     with col_left:
         st.markdown("### 📝 Script Input / یہاں اسکرپٹ لکھیں")
-        input_text = st.text_area("Input Text", placeholder="Paste your script here in any language... \nیہاں apna script paste karein...", height=240, label_visibility="collapsed")
+        input_text = st.text_area("Input Text", placeholder="Paste your script here in any language... \nیہاں اپنا اسکرپٹ پیسٹ کریں...", height=240, label_visibility="collapsed")
         
         st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگز")
+        st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگiz")
         
         selected_voice_label = st.selectbox("Choose Actor Voice / آواز کا انتخاب کریں", options=list(VOICES.keys()), index=0)
         selected_voice_id = VOICES[selected_voice_label]
@@ -240,7 +276,7 @@ if page == "🎙️ Studio":
                             """, unsafe_allow_html=True)
                             st.audio(file_path)
                     else:
-                        st.error("No valid sentence markers found / کوئی جملہ نہیں ملا۔")
+                        st.error("No valid sentence markers found / کوئی جملہ نہیں mila.")
         else:
             st.info("System standby. Select voice profile, enter script and click compile.")
 
@@ -303,13 +339,11 @@ elif page == "⚠️ Disclaimer":
 # ==============================================================================
 st.markdown('<div class="bottom-nav-container">', unsafe_allow_html=True)
 
-# Streamlit ke elements column wise alignment mein horizontal render honge
 nav_cols = st.columns(6)
 pages_list = ["🎙️ Studio", "📄 Privacy Policy", "⚖️ Terms & Conditions", "ℹ️ About Us", "📧 Contact Us", "⚠️ Disclaimer"]
 
 for i, p_name in enumerate(pages_list):
     with nav_cols[i]:
-        # Active page ka button alag look dega
         is_active = (st.session_state.current_page == p_name)
         if st.button(p_name, key=f"nav_btn_{i}", use_container_width=True, type="primary" if is_active else "secondary"):
             st.session_state.current_page = p_name
