@@ -8,12 +8,16 @@ import io
 
 OUTPUT_DIR = "output_voices"
 
-# Premium Voices Mapping
+# Premium Voices Mapping (Urdu + English + Arabic + Hindi Tier-1 Models)
 VOICES = {
     "Asad (Urdu - Male) 🇵🇰": "ur-PK-AsadNeural",
     "Uzma (Urdu - Female) 🇵🇰": "ur-PK-UzmaNeural",
     "Christopher (English - Male) 🇺🇸": "en-US-ChristopherNeural",
-    "Ava (English - Female) 🇺🇸": "en-US-AvaNeural"
+    "Ava (English - Female) 🇺🇸": "en-US-AvaNeural",
+    "Hamed (Arabic - Male) 🇸🇦": "ar-SA-HamedNeural",
+    "Sana (Arabic - Female) 🇸🇦": "ar-SA-SanaNeural",
+    "Madhur (Hindi - Male) 🇮🇳": "hi-IN-MadhurNeural",
+    "Swara (Hindi - Female) 🇮🇳": "hi-IN-SwaraNeural"
 }
 
 async def generate_voice_tracks(text, voice_id, speed, pitch):
@@ -28,7 +32,8 @@ async def generate_voice_tracks(text, voice_id, speed, pitch):
     speed_str = f"{'+' if speed >= 0 else ''}{speed}%"
     pitch_str = f"{'+' if pitch >= 0 else ''}{pitch}Hz"
     
-    sentences = [s.strip() for s in re.split(r'(?<=[.!?|۔؟])\s+', text) if s.strip()]
+    # English/Arabic (.!?) Urdu (۔؟) aur Hindi (।) sentence markers par split karega
+    sentences = [s.strip() for s in re.split(r'(?<=[.!?|۔؟।])\s+', text) if s.strip()]
     if not sentences:
         return None
     
@@ -139,7 +144,7 @@ if page == "🎙️ Studio":
 
     with col_left:
         st.markdown("### 📝 Script Input / یہاں اسکرپٹ لکھیں")
-        input_text = st.text_area("Input Text", placeholder="Paste your script here (English or Urdu)... \nیہاں اپنا انگلش یا اردو اسکرپٹ پیسٹ کریں۔", height=240, label_visibility="collapsed")
+        input_text = st.text_area("Input Text", placeholder="Paste your script here (English, Urdu, Arabic or Hindi)... \nیہاں اپنا اسکرپٹ پیسٹ کریں۔", height=240, label_visibility="collapsed")
         
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("### ⚙️ Voice Settings / آواز کی سیٹنگز")
@@ -198,15 +203,14 @@ if page == "🎙️ Studio":
         else:
             st.info("System standby. Select voice profile, enter script and click compile.")
 
-    # AdSense-friendly Documentation Content Block
     st.markdown("---")
     st.markdown("### 📘 Detailed User Guide & Feature Overview")
     st.write("""
-    Welcome to the **VocalForge AI Studio**. This web utility leverages advanced cognitive neural speech architectures to transform regular textual content into modular audio elements. 
-    Whether you are building cash-cow automation workflows or highly engaging cinematic documentaries, our system eliminates manual splitting pipelines.
+    Welcome to the **VocalForge AI Studio**. This web utility leverages advanced cognitive neural speech architectures to transform multilingual textual content into modular audio elements. 
+    Whether you are building cash-cow automation workflows or highly engaging cinematic documentaries in English, Urdu, Hindi, or Arabic, our system eliminates manual splitting pipelines.
     
     #### How It Works:
-    1. **Text Segmentation:** The backend parsing engine processes inputs and tokenizes textual information based on language-specific sentence terminators like periods (`.`) for English or khatma (`۔`) for Urdu scripts.
+    1. **Text Segmentation:** The backend parsing engine processes inputs and tokenizes textual information based on language-specific sentence terminators like periods (`.`) for English, khatma (`۔`) for Urdu, or poorna viram (`।`) for Hindi scripts.
     2. **Neural Synthesizing:** Selected vocal models process individual data tracks independently using asynchronous execution routines to maintain high performance.
     3. **Timeline Deployment:** Audio outputs are delivered sequentially (`track_001.mp3`, `track_002.mp3`), making it instantly compatible with editing software like Adobe Premiere Pro, CapCut, or DaVinci Resolve.
     """)
@@ -272,7 +276,7 @@ elif page == "ℹ️ About Us":
     VocalForge AI Studio is a cutting-edge web utility engineered specifically for next-generation content creators, video editors, and cross-platform automation specialists. Our primary mission is to simplify the content synthesis workflow by bridging the gap between sophisticated neural audio models and modern non-linear editing (NLE) suites.
 
     #### Why Choose Us?
-    Traditional Text-to-Speech solutions generate massive, single-track audio blocks that require hours of meticulous splicing on editing timelines. VocalForge AI Studio dynamically parses textual scripts into logical linguistic elements, synthesizing independent, high-fidelity sound tracks in structural sequence.
+    Traditional Text-to-Speech solutions generate massive, single-track audio blocks that require hours of meticulous splicing on editing timelines. VocalForge AI Studio dynamically parses textual scripts into logical linguistic elements, synthesizing independent, high-fidelity sound tracks in structural sequence across diverse languages including English, Urdu, Hindi, and Arabic.
 
     #### Core Values
     * **Efficiency:** Minimizing time spent on asset slicing.
